@@ -1,0 +1,31 @@
+@import './variables';
+
+// Import this file and use the below variables in any js file
+:export {
+  primary: $primary;
+  secondary: $secondary;
+
+  breakpoint_xs: map-get($grid-breakpoints, xs);
+  breakpoint_sm: map-get($grid-breakpoints, sm);
+  breakpoint_md: map-get($grid-breakpoints, md);
+  breakpoint_lg: map-get($grid-breakpoints, lg);
+  breakpoint_landscape: map-get($grid-breakpoints, landscape);
+  breakpoint_xl: map-get($grid-breakpoints, xl);
+  breakpoint_lap: map-get($grid-breakpoints, lap);
+  breakpoint_hd: map-get($grid-breakpoints, hd);
+
+  size4: $size4;
+  size8: $size8;
+  size12: $size12;
+  size14: $size14;
+  size16: $size16;
+  size20: $size20;
+  size24: $size24;
+  size32: $size32;
+  size40: $size40;
+  size48: $size48;
+  size56: $size56;
+  size64: $size64;
+  size72: $size72;
+  size80: $size80;
+}

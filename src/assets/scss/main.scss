@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap&subset=greek');
+
+@import './partials/variables';
+@import './partials/mixins';
+@import './partials/bootstrap';
+@import './partials/helpers';
+@import './partials/buttons';
+@import './partials/inputs';
+@import './partials/loading';
+@import './partials/exports';
+@import './partials/buttons';
+
+@import './views/header';
+@import "views/chatLayout";
+@import "views/message";
+@import "views/sidebar";
+@import "views/about";

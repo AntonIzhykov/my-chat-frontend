@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "react"
+  ],
+  "parser": "babel-eslint",
+  "rules": {
+    "jsx-quotes": ["error", "prefer-double"],
+    "react/jsx-uses-vars": "error",
+    "react/jsx-uses-react": "error",
+    "camelcase": 0
+  }
+}

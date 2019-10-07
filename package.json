@@ -1,0 +1,68 @@
+{
+  "name": "My-chat-frontend",
+  "version": "0.1.0",
+  "author": "Anton Izhykov a.k.a. LanzzLophophora",
+  "private": true,
+  "dependencies": {
+    "autosize": "^4.0.2",
+    "axios": "^0.19.0",
+    "axios-mock-adapter": "^1.17.0",
+    "bootstrap": "^4.3.1",
+    "connected-react-router": "^6.5.2",
+    "fetch-mock": "^7.3.9",
+    "history": "^4.9.0",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "node-fetch": "^2.6.0",
+    "node-sass": "^4.12.0",
+    "node-sass-chokidar": "^1.3.5",
+    "npm-run-all": "^4.1.5",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "recharts": "^1.6.2",
+    "redux": "^4.0.4",
+    "redux-mock-store": "^1.5.3",
+    "redux-thunk": "^2.3.0",
+    "route": "^0.2.5",
+    "sweetalert2": "^8.17.6",
+    "uuid": "^3.3.2",
+    "zxcvbn": "^4.4.2"
+  },
+  "scripts": {
+    "start-js": "react-scripts start",
+    "start": "NODE_PATH=./src && PORT=3000 && npm-run-all -p watch-css start-js",
+    "build-js": "react-scripts build",
+    "build": "npm-run-all build-css build-js",
+    "build-css": "node-sass-chokidar src/assets/scss -o src/assets/css",
+    "watch-css": "npm run build-css && node-sass-chokidar src/assets/scss -o src/assets/css --watch --recursive",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "semi": true
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  }
+}

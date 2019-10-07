@@ -1,0 +1,55 @@
+.btn {
+  outline: none !important;
+  font-size: $size14;
+  border: none;
+  background-color: $glitter;
+
+  &:hover,
+  &:active {
+    color: white;
+  }
+  &:hover {
+    background-color: $dark-lava;
+  }
+
+  &:active {
+    box-shadow: none !important;
+    background-color: $active !important;
+  }
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &.btn-empty {
+    background: none !important;
+    text-transform: initial;
+    box-shadow: none !important;
+    border: none;
+
+    &:focus,
+    &:hover {
+      background: none;
+    }
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.clipped {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.confirm-button-class:focus,
+.cancel-button-class:focus {
+  box-shadow: none !important;
+}

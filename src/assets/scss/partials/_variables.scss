@@ -1,0 +1,247 @@
+// Bootstrap overrides https://github.com/twbs/bootstrap/blob/v4-dev/scss/_variables.scss
+
+// Set color pallete
+$dark-lava: #343434;
+$golden-yellow: #fedd00;
+$gainsboro: #d4d9e2;
+$glitter: #e5e9f0;
+$ghost-white: #fafbfd;
+
+// Set some defaults colors
+$primary: $dark-lava;
+$secondary: $gainsboro;
+$active: #6c6d6e;
+$error: #fe5f55;
+
+// Add your custom theme colors and use them like ex. btn-custom
+$theme-colors: ();
+$theme-colors: map-merge(
+  (
+    'primary': $primary,
+    'yellow': $golden-yellow,
+    'secondary': $glitter,
+     'error': $error
+  ),
+  $theme-colors
+);
+
+// Grid is based on 8-point Grid System -- https://builttoadapt.io/intro-to-the-8-point-grid-system-d2573cde8632
+// Set spacers - Multiples of 8
+// ex: mt-1 = 0.5rem = 8px, mt-2 = 1rem = 16px, mt-3 = 1.5rem = 24px etc...
+$spacer: 1rem;
+$spacers: ();
+$spacers: map-merge(
+  (
+    0: 0,
+    1: (
+      $spacer * 0.5
+    ),
+    2: $spacer,
+    3: (
+      $spacer * 1.5
+    ),
+    4: (
+      $spacer * 2
+    ),
+    5: (
+      $spacer * 2.5
+    ),
+    6: (
+      $spacer * 3
+    ),
+    7: (
+      $spacer * 3.5
+    ),
+    8: (
+      $spacer * 4
+    ),
+    9: (
+      $spacer * 4.5
+    ),
+    10: (
+      $spacer * 5
+    ),
+    11: (
+      $spacer * 5.5
+    ),
+    12: (
+      $spacer * 6
+    ),
+    13: (
+      $spacer * 6.5
+    ),
+    14: (
+      $spacer * 7
+    ),
+    15: (
+      $spacer * 7.5
+    ),
+    16: (
+      $spacer * 8
+    ),
+    17: (
+      $spacer * 8.5
+    ),
+    18: (
+      $spacer * 9
+    ),
+    19: (
+      $spacer * 9.5
+    ),
+    20: (
+      $spacer * 10
+    ),
+    21: (
+      $spacer * 11
+    ),
+    22: (
+      $spacer * 13
+    ),
+    23: (
+      $spacer * 16
+    ),
+    24: (
+      $spacer * 18
+    ),
+    25: (
+      $spacer * 18.125
+    ),
+    26: (
+      $spacer * 20.25
+    )
+  ),
+  $spacers
+);
+
+// Set helper sizes
+$size4: 0.25rem; // 4px
+$size8: map-get($spacers, 1); // 8px
+$size10: 0.65rem; // 10px
+$size12: 0.75rem; // 12px
+$size14: 0.875rem; // 14px
+$size16: map-get($spacers, 2); // 16px
+$size18: 1.125rem; // 18px
+$size20: 1.25rem; // 20px
+$size24: map-get($spacers, 3); // 24px
+$size26: 1.625rem;
+$size28: 1.75rem; // 28px
+$size32: map-get($spacers, 4); // 32px
+$size36: 2.25rem;
+$size40: map-get($spacers, 5); // 40px
+$size48: map-get($spacers, 6); // 48px
+$size56: map-get($spacers, 7); // 56px
+$size64: map-get($spacers, 8); // 64px
+$size72: map-get($spacers, 9); // 72px
+$size80: map-get($spacers, 10); // 80px
+$size88: map-get($spacers, 11); // 88px
+$size96: map-get($spacers, 12); // 96px
+$size104: map-get($spacers, 13); // 104px
+$size112: map-get($spacers, 14); // 112px
+$size120: map-get($spacers, 15); // 120px
+$size128: map-get($spacers, 16); // 128px
+$size136: map-get($spacers, 17); // 136px
+$size144: map-get($spacers, 18); // 144px
+$size152: map-get($spacers, 19); // 152px
+$size160: map-get($spacers, 20); // 160px
+$size176: map-get($spacers, 21); // 176px
+$size208: map-get($spacers, 22); // 208px
+$size256: map-get($spacers, 23); // 256px
+$size288: map-get($spacers, 24); // 288px
+$size290: map-get($spacers, 25); // 290px
+$size324: map-get($spacers, 26); // 324px
+
+// Set font defaults
+$font-family-base: 'Montserrat', 'Open Sans', sans-serif;
+$font-family-sans-serif: 'sans-serif';
+
+$font-weight-light: 400;
+$font-weight-base: 400;
+$font-weight-medium: 500;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+
+$font-size-base: $size14; // Assumes the browser default, typically `16px`
+
+// Set bootstrap fonts path
+$icon-font-path: '../fonts/bootstrap/';
+
+// Set h1, h2, h3, h4, h5, h6 sizes
+$h1-font-size: $size48;
+$h2-font-size: $size40;
+$h3-font-size: $size32;
+$h4-font-size: $size24;
+$h5-font-size: $size16;
+$h6-font-size: $size8;
+
+// Set Grid gutter width = 2rem = 32px
+// rows left/right margin equals -1rem = -16px. columns left/right padding equals 1rem = 16px
+$grid-gutter-width: $size32;
+
+// Set grid breakpoints
+// Use them like: mt-landscape-3, col-landscape-4, etc...
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  landscape: 1024px,
+  xl: 1200px,
+  lap: 1440px,
+  hd: 1680px
+);
+
+// Create custom containers
+$container-xl-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 1140px,
+  landscape: 1140px,
+  xl: 1140px,
+  lap: 1200px,
+  hd: 1504px
+) !default;
+
+// Modals
+$modal-md: 680px !default;
+
+// Use make-container-max-widths Mixin to generate new container's max widths and breakpoints
+/*
+  .container-xl {
+    @include make-container-max-widths($container-xl-max-widths);
+  }
+*/
+
+// Set some body defaults
+$body-bg: #fff;
+$body-color: $primary;
+$border-radius-base: 3px;
+
+// Set some links defaults
+$link-color: $primary;
+//$link-hover-color: $glitter;
+$link-hover-decoration: none;
+
+// Set some buttons defaults
+$btn-default-color: $body-color;
+$btn-border-radius-small: $border-radius-base;
+$btn-border-radius-base: $border-radius-base;
+$btn-border-radius-large: $border-radius-base;
+$btn-focus-box-shadow: none;
+$btn-box-shadow: none;
+$btn-font-weight: $font-weight-medium;
+$btn-padding-y: $size8;
+$btn-padding-x: $size24;
+$btn-line-height: 1.385rem;
+
+// Set some inputs defaults
+$form-group-margin-bottom: $size32;
+$input-btn-padding-y: $size8;
+$input-btn-padding-x: $size16;
+$input-color: $body-color;
+$input-focus-color: $primary;
+$input-border-color: $glitter;
+$input-border-radius: $border-radius-base;
+$input-placeholder-color: $glitter;
+$input-focus-border-color: $primary;
+$input-disabled-bg: #fff;
+$input-padding-y: $size4;

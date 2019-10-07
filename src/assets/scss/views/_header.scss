@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #d4d9e2;
+  padding: 0.5rem 3rem;
+
+  .link-group, .hello {
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

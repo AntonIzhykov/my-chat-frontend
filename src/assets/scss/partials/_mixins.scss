@@ -1,0 +1,66 @@
+@mixin placeholder($color, $size: '', $opacity: '', $weight: '') {
+  &::-webkit-input-placeholder {
+    color: $color;
+    @if $size != '' {
+      font-size: $size;
+    }
+    @if $opacity != '' {
+      opacity: $opacity;
+    }
+    @if $weight != '' {
+      font-weight: $weight;
+    } @else {
+      font-weight: 500;
+    }
+    font-family: $font-family-base;
+    font-style: normal;
+  }
+  &:-moz-placeholder {
+    color: $color;
+    @if $size != '' {
+      font-size: $size;
+    }
+    @if $opacity != '' {
+      opacity: $opacity;
+    }
+    @if $weight != '' {
+      font-weight: $weight;
+    } @else {
+      font-weight: 500;
+    }
+    font-family: $font-family-base;
+    font-style: normal;
+  }
+  &::-moz-placeholder {
+    color: $color;
+    @if $size != '' {
+      font-size: $size;
+    }
+    @if $opacity != '' {
+      opacity: $opacity;
+    }
+    @if $weight != '' {
+      font-weight: $weight;
+    } @else {
+      font-weight: 500;
+    }
+    font-family: $font-family-base;
+    font-style: normal;
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+    @if $size != '' {
+      font-size: $size;
+    }
+    @if $opacity != '' {
+      opacity: $opacity;
+    }
+    @if $weight != '' {
+      font-weight: $weight;
+    } @else {
+      font-weight: 500;
+    }
+    font-family: $font-family-base;
+    font-style: normal;
+  }
+}

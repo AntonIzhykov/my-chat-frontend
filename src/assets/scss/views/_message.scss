@@ -1,0 +1,53 @@
+.message-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem;
+
+  .avatar {
+    width: 10%;
+  }
+
+  .message-container {
+    width: 100%;
+
+    .up-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+
+      .username {
+        cursor: pointer;
+      }
+
+      .time-wrapper {
+        margin-right: 1rem;
+
+        .time {
+          &.edited {
+            font-size: 0.7rem;
+            color: $gainsboro;
+          }
+          margin: 0 0.5rem;
+        }
+      }
+    }
+
+    .message-body {
+      border-radius: 1rem;
+      background: $glitter;
+      text-align: justify;
+      padding: 0.5rem 1rem;
+    }
+
+  }
+
+  .btn-group {
+    padding: 0.25rem;
+
+    .button {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
