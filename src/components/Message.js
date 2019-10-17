@@ -12,23 +12,21 @@ class Message extends Component {
       handleDeleteMessage,
       handleClickName
     } = this.props;
-    // console.log('authors in message', authors);
-    //
-    // console.log('author => ', author);
-    // console.log('user => ', user);
 
     const messageAuthor = authors.filter(user => user._id === author._id)[0];
 
-    // console.log('messageAuthor', messageAuthor);
     return (
-      <div className="message-wrapper" key={_id}>
+      <div
+        className={`${messageAuthor._id === user._id ? 'flex-row-reverse' : ''} message-wrapper`}
+        key={_id}
+      >
         <div className="avatar">
           {messageAuthor && messageAuthor.avatar && (
             <img src={messageAuthor.avatar.secure_url} className="full-size" alt="avatar" />
           )}
         </div>
         <div className="message-container">
-          <div className="up-line">
+          <div className={`${messageAuthor._id === user._id ? 'flex-row-reverse' : ''} up-line`}>
             <span
               className={`${
                 messageAuthor._id === user._id ? 'font-weight-lighter' : 'font-weight-bolder'
