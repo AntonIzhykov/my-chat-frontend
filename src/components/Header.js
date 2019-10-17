@@ -23,10 +23,20 @@ class Header extends Component {
 
   render() {
     const {
-      user,
+      chat: { currentUser: user, currentRoom },
       auth: { error }
     } = this.props;
     const { pathname } = this.props.location;
+    const h2 =
+      pathname === '/'
+        ? 'Welcome!'
+        : pathname === '/chat'
+        ? 'Room list'
+        : pathname === '/profile'
+        ? 'Profile settings'
+        : currentRoom
+        ? `Room #${currentRoom.roomName}`
+        : '';
     return (
       <div className="header">
         <div className="link-group">
@@ -37,7 +47,9 @@ class Header extends Component {
           )}
           |<NavLink to="/">Main</NavLink>|<NavLink to="/chat">Chat</NavLink>|
         </div>
-
+        <div>
+          <h2>{h2}</h2>
+        </div>
         {!_.isEmpty(user) ? (
           <div className="hello">
             Hello, <NavLink to="/profile">{user.login}</NavLink>
@@ -59,7 +71,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = store => ({
-  user: store.chat.currentUser,
+  chat: store.chat,
   auth: store.auth
 });
 
