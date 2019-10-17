@@ -47,6 +47,15 @@ export const chat = (state = initialState, action) => {
         }
       };
 
+    case con.SET_LAST_ROOM:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          lastRoom: action.payload
+        }
+      };
+
     case con.ADD_NEW_ROOM:
       return {
         ...state,

@@ -5,6 +5,11 @@ export const setCurrentRoom = currentRoom => ({
   payload: currentRoom
 });
 
+export const setLastRoom = lastRoom => ({
+  type: con.SET_LAST_ROOM,
+  payload: lastRoom
+});
+
 export const addNewRoom = newRoom => ({
   type: con.ADD_NEW_ROOM,
   payload: newRoom

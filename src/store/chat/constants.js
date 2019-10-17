@@ -1,5 +1,6 @@
 export const SET_CURRENT_USER = 'chat/SET_CURRENT_USER';
 export const SET_CURRENT_ROOM = 'chat/SET_CURRENT_ROOM';
+export const SET_LAST_ROOM = 'chat/SET_LAST_ROOM';
 
 export const ADD_NEW_ROOM = 'chat/ADD_NEW_ROOM';
 

@@ -22,6 +22,13 @@ class CurrentRoom extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      const roomId = this.props.match.params.id;
+      wsActions.handleLeavingRoom();
+      wsActions.handleJoiningRoom(roomId);
+      this.inputMessage.focus();
+      autosize(this.inputMessage);
+    }
     this.messagesRef.current.scrollTop = this.messagesRef.current.scrollHeight;
   }
 
@@ -91,9 +98,10 @@ class CurrentRoom extends Component {
     const { editingMessage } = this.state;
     return (
       <div className="current-room">
-        <h3>{room.roomName}</h3>
+        {/*<h3>{room.roomName}</h3>*/}
         <div className="messages" ref={this.messagesRef}>
           {!_.isEmpty(room) &&
+            room.messages &&
             room.messages.length > 0 &&
             room.messages.map((message, i) => {
               const currentDate = moment(new Date(message.timeCreate));
