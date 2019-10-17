@@ -2,14 +2,14 @@
   outline: none !important;
   font-size: $size14;
   border: none;
-  background-color: $glitter;
+  background-color: $warm-orange-light;
 
   &:hover,
   &:active {
     color: white;
   }
   &:hover {
-    background-color: $dark-lava;
+    background-color: $soft-green-light;
   }
 
   &:active {

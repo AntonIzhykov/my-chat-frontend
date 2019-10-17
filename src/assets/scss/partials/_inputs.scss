@@ -20,14 +20,14 @@
   height: $size40;
   color: $input-color;
   font-weight: $font-weight-medium;
-  box-shadow: 0px 0px 0px $input-border-color;
+  box-shadow: 0 0 0 $input-border-color;
 
   &:hover {
-    box-shadow: 0px 0px 10px $input-border-color;
+    box-shadow: 0 0 10px $input-border-color;
   }
   &:focus {
     box-shadow: none;
-    border: 1px solid $gainsboro !important;
+    border: 1px solid $warm-orange-dark !important;
     outline: none;
   }
   &::placeholder {
@@ -66,7 +66,7 @@ textarea.form-control {
 
 .react-select {
   color: $dark-lava;
-  border: 1px solid $gainsboro;
+  border: 1px solid $primary;
   border-radius: 3px;
   text-transform: initial;
   font-weight: $font-weight-medium;

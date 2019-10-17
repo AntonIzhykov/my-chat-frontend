@@ -3,15 +3,20 @@
 // Set color pallete
 $dark-lava: #343434;
 $golden-yellow: #fedd00;
-$gainsboro: #d4d9e2;
-$glitter: #e5e9f0;
+$soft-green-main: #00A876;
+$soft-green-light: #5FD4B1;
+$soft-green-dark: #006D4C;
+$warm-orange-main: #FF9A00;
+$warm-orange-light: #FFC873;
+$warm-orange-dark: #A66400;
 $ghost-white: #fafbfd;
+$glitter: #2e2e2e;
 
 // Set some defaults colors
-$primary: $dark-lava;
-$secondary: $gainsboro;
-$active: #6c6d6e;
-$error: #fe5f55;
+$primary: $soft-green-main;
+$secondary: $warm-orange-main;
+$active: $warm-orange-dark;
+$error: #EC0033;
 
 // Add your custom theme colors and use them like ex. btn-custom
 $theme-colors: ();
@@ -19,7 +24,7 @@ $theme-colors: map-merge(
   (
     'primary': $primary,
     'yellow': $golden-yellow,
-    'secondary': $glitter,
+    'secondary': $secondary,
      'error': $error
   ),
   $theme-colors
@@ -213,7 +218,7 @@ $modal-md: 680px !default;
 
 // Set some body defaults
 $body-bg: #fff;
-$body-color: $primary;
+$body-color: $glitter;
 $border-radius-base: 3px;
 
 // Set some links defaults
@@ -239,7 +244,7 @@ $input-btn-padding-y: $size8;
 $input-btn-padding-x: $size16;
 $input-color: $body-color;
 $input-focus-color: $primary;
-$input-border-color: $glitter;
+$input-border-color: $soft-green-light;
 $input-border-radius: $border-radius-base;
 $input-placeholder-color: $glitter;
 $input-focus-border-color: $primary;
