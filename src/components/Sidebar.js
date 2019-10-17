@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 class Sidebar extends Component {
 
   render() {
-    const { chatRooms, currentRoom: { _id, users }, currentUser, currentUser: { lastRoom } }  = this.props.chat;
+    const { chatRooms, currentRoom: { _id, users }, currentUser, currentUser: { lastRoom = '' } = {} }  = this.props.chat;
     const { pathname } = this.props.location;
     return (
       <div id='sidebar' className='sidebar'>

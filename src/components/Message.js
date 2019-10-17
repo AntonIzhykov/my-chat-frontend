@@ -6,32 +6,41 @@ class Message extends Component {
   render() {
     const {
       user,
-      message: {
-        _id,
-        author,
-        author: { login },
-        messageBody,
-        timeCreate,
-        timeEdit,
-        avatar,
-        isEdited
-      },
+      authors,
+      message: { _id, author, messageBody, timeCreate, timeEdit, isEdited },
       handleEditMessage,
       handleDeleteMessage,
       handleClickName
     } = this.props;
+    // console.log('authors in message', authors);
+    //
+    // console.log('author => ', author);
+    // console.log('user => ', user);
+
+    const messageAuthor = authors.filter(user => user._id === author._id)[0];
+
+    // console.log('messageAuthor', messageAuthor);
     return (
       <div className="message-wrapper" key={_id}>
-        <div className="avatar">{/*{avatar}*/}</div>
+        <div className="avatar">
+          {messageAuthor && messageAuthor.avatar && (
+            <img src={messageAuthor.avatar.secure_url} className="full-size" alt="avatar" />
+          )}
+        </div>
         <div className="message-container">
           <div className="up-line">
-            <span className={`${author._id === user._id ? 'font-weight-lighter' : 'font-weight-bolder'} username`} onClick={handleClickName(login)}>
-              {author._id === user._id ? "You:" : `${login}:`}
+            <span
+              className={`${
+                messageAuthor._id === user._id ? 'font-weight-lighter' : 'font-weight-bolder'
+              } username`}
+              onClick={handleClickName(messageAuthor.login)}
+            >
+              {messageAuthor._id === user._id ? 'You:' : `${messageAuthor.login}:`}
             </span>
             <div className="time-wrapper">
               {isEdited && (
                 <span className="time edited">
-                  <i className="fas fa-pencil-alt"/> edited {moment(timeEdit).format('HH:mm:ss')}
+                  <i className="fas fa-pencil-alt" /> edited {moment(timeEdit).format('HH:mm:ss')}
                 </span>
               )}
               <span className="time">{moment(timeCreate).format('HH:mm')}</span>
@@ -39,13 +48,13 @@ class Message extends Component {
           </div>
           <div className="message-body">{messageBody}</div>
         </div>
-        {author._id === user._id ? (
+        {messageAuthor._id === user._id ? (
           <div className="btn-group">
-            <button className='button' onClick={handleEditMessage(_id, messageBody)}>
-              <i className="fas fa-edit"/>
+            <button className="button" onClick={handleEditMessage(_id, messageBody)}>
+              <i className="fas fa-edit" />
             </button>
-            <button className='button' onClick={handleDeleteMessage(_id)}>
-              <i className="fas fa-trash"/>
+            <button className="button" onClick={handleDeleteMessage(_id)}>
+              <i className="fas fa-trash" />
             </button>
           </div>
         ) : (
@@ -57,7 +66,8 @@ class Message extends Component {
 }
 
 const mapStateToProps = store => ({
-  user: store.chat.currentUser
+  user: store.chat.currentUser,
+  authors: store.chat.currentRoom.authors
 });
 
 export default connect(mapStateToProps)(Message);
