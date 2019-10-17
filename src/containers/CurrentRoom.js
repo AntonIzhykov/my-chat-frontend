@@ -79,13 +79,16 @@ class CurrentRoom extends Component {
   };
 
   keyDownListener = e => {
-    if(e.keyCode===13) {
-      return e.ctrlKey && e.keyCode===13 ? this.inputMessage.value += `\n` : this.handleSubmitMessage(e);
+    if (e.keyCode === 13) {
+      return e.ctrlKey && e.keyCode === 13
+        ? (this.inputMessage.value += `\n`)
+        : this.handleSubmitMessage(e);
     }
   };
 
   render() {
     const { room } = this.props;
+    const { editingMessage } = this.state;
     return (
       <div className="current-room">
         <h3>{room.roomName}</h3>
@@ -101,7 +104,9 @@ class CurrentRoom extends Component {
               return (
                 <React.Fragment key={message._id}>
                   {prevDate && moment(currentDate).diff(moment(prevDate), 'days') !== 0 && (
-                    <div className='text-center'>----- {currentDate.format('DD-MM-YYYY')} -----</div>
+                    <div className="text-center">
+                      ----- {currentDate.format('DD-MM-YYYY')} -----
+                    </div>
                   )}
                   <Message
                     message={message}
@@ -113,7 +118,10 @@ class CurrentRoom extends Component {
               );
             })}
         </div>
-        <form className="d-flex justify-content-between position-relative" onSubmit={this.handleSubmitMessage}>
+        <form
+          className="d-flex justify-content-between position-relative"
+          onSubmit={this.handleSubmitMessage}
+        >
           <textarea
             className="message-text"
             ref={element => {
@@ -124,8 +132,10 @@ class CurrentRoom extends Component {
             placeholder="Enter your message"
           />
           <div className="btn-group">
-            {!_.isEmpty(this.state.editingMessage) && (
-              <button className="send-message" onClick={this.handleCancelEditing}>Cancel</button>
+            {!_.isEmpty(editingMessage) && (
+              <button className="send-message" onClick={this.handleCancelEditing}>
+                Cancel
+              </button>
             )}
             <button type="submit" className="send-message">
               Send
