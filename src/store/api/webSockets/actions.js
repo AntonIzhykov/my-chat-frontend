@@ -1,26 +1,4 @@
-import TokenStorage from '../token';
-import { history } from '../../index';
 import { wsSend } from './webSocket';
-
-export const handleCheckCurrentUser = () => {
-  const token = TokenStorage.getItemFromLocalStorage();
-  if (!token) {
-    history.push('/');
-  } else {
-    wsSend({
-      type: 'user_join_chat',
-    })
-  }
-};
-
-export const handleAuthentication = (login, password) => {
-  wsSend({
-    type: 'user_join_chat',
-    data: {
-      login, password
-    }
-  });
-};
 
 export const handleCreatingRoom = roomName => {
   wsSend({
@@ -28,7 +6,7 @@ export const handleCreatingRoom = roomName => {
     data: {
       roomName
     }
-  })
+  });
 };
 
 export const handleJoiningRoom = roomId => {
@@ -71,7 +49,7 @@ export const handleDeletingMessage = messageId => {
     data: {
       messageId
     }
-  })
+  });
 };
 
 export const handleDeletingRoom = (roomId, userId) => {
@@ -81,11 +59,11 @@ export const handleDeletingRoom = (roomId, userId) => {
       roomId,
       userId
     }
-  })
+  });
 };
 
 export const handleLeavingChat = () => {
   wsSend({
     type: 'user_left_chat'
-  })
+  });
 };
