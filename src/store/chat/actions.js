@@ -1,31 +1,13 @@
 import * as con from './constants';
 
-export const setOnline = () => ({
-  type: con.SET_ONLINE
-});
-
-export const setOffline = () => ({
-  type: con.SET_OFFLINE
-});
-
-export const setChatRooms = rooms => ({
-  type: con.SET_CHAT_ROOMS,
-  payload: rooms
-});
-
 export const setCurrentRoom = currentRoom => ({
   type: con.SET_CURRENT_ROOM,
   payload: currentRoom
 });
 
-export const setCurrentUser = user => ({
-  type: con.SET_CURRENT_USER,
-  payload: user
-});
-
 export const addNewRoom = newRoom => ({
   type: con.ADD_NEW_ROOM,
-  payload:newRoom
+  payload: newRoom
 });
 
 export const pushNewMessage = message => ({
@@ -58,6 +40,39 @@ export const messageEdited = message => ({
   payload: message
 });
 
-export const userLeftChat = () => ({
-  type: con.USER_LEFT_CHAT
+export const userHasBeenChanged = user => ({
+  type: con.USER_HAS_BEEN_CHANGED,
+  payload: user
+});
+
+export const getRoomsRequest = () => ({
+  type: con.GET_ROOMS_REQUEST
+});
+
+export const getRoomsSuccess = rooms => ({
+  type: con.GET_ROOMS_SUCCESS,
+  payload: rooms
+});
+
+export const getRoomsFailure = error => ({
+  type: con.GET_ROOMS_FAILURE,
+  payload: error
+});
+
+export const updateProfileRequest = () => ({
+  type: con.UPDATE_PROFILE_REQUEST
+});
+
+export const updateProfileRSuccess = () => ({
+  type: con.UPDATE_PROFILE_SUCCESS
+});
+
+export const updateProfileRFailure = error => ({
+  type: con.UPDATE_PROFILE_FAILURE,
+  payload: error
+});
+
+export const saveNewAvatar = image => ({
+  type: con.SAVE_NEW_AVATAR,
+  payload: image
 });
