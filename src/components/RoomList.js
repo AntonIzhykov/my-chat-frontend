@@ -43,9 +43,6 @@ class RoomList extends Component {
         <div className="list">
           {chatRooms && chatRooms.length
             ? chatRooms.map(room => {
-                console.log('room', room);
-                console.log('currentUser', currentUser);
-                console.log(room.roomCreator === currentUser._id);
                 return (
                   <div className="room" key={room._id}>
                     <NavLink to={`/chat/${room._id}`}>

@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 
 import 'assets/css/main.css';
-import { AppRouter } from '../helpers/routers';
+import { AppRouter } from '../helpers';
 import Header from './Header';
 import { connect } from 'react-redux';
 import Loader from './Loader';

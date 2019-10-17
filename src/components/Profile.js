@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { setLoadingTrue } from '../store/auth/actions';
 import Loader from './Loader';
-import Swal from 'sweetalert2';
 import { handleUpdatingProfile } from '../store/chat';
 import MyAvatarEditor from '../containers/MyAvatarEditor/MyAvatarEditor';
+import { showError } from '../helpers';
 
 class Profile extends Component {
   state = {
@@ -20,7 +20,11 @@ class Profile extends Component {
   };
 
   componentDidMount() {
-    const { login, email } = this.props.user;
+    const {
+      chat: {
+        currentUser: { login, email }
+      }
+    } = this.props;
     this.setState({
       login,
       email
@@ -40,23 +44,14 @@ class Profile extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { password, login, email, newPassword, confirmNewPassword, error } = this.state;
-
     const newAvatar = this.props.newAvatar;
 
-    if (error) {
-      return Swal.fire({
-        type: 'error',
-        title: 'Error!',
-        text: error
-      });
-    }
-    if (newPassword && newPassword !== confirmNewPassword) {
-      return Swal.fire({
-        type: 'error',
-        title: 'Error!',
-        text: 'Wrong confirm new password!'
-      });
-    }
+    if (!password) return showError('error', 'Error!', 'Please, enter your password!');
+    if (!login) return showError('error', 'Error!', 'You can`t use an empty name!');
+    if (error) return showError('error', 'Error!', error);
+    if (newPassword && newPassword !== confirmNewPassword)
+      return showError('error', 'Error!', 'Wrong confirm new password!');
+
     const userData = {
       password,
       login,
@@ -83,11 +78,21 @@ class Profile extends Component {
   };
 
   render() {
-    const { login, email, showNewPass, defaultImage, newPassword, confirmNewPassword } = this.state;
     const {
-      user,
-      loading,
-      user: { avatar }
+      login,
+      email,
+      showNewPass,
+      password,
+      defaultImage,
+      newPassword,
+      confirmNewPassword
+    } = this.state;
+    const {
+      chat: {
+        loading,
+        currentUser: user,
+        currentUser: { avatar }
+      }
     } = this.props;
     return (
       <div className="profile">
@@ -95,34 +100,31 @@ class Profile extends Component {
         <h3>{user.login}</h3>
         <div className="d-flex" onSubmit={this.handleSubmit}>
           <div className="avatar-label">
-            {/*{avatar && avatar.secure_url && <img src={avatar.secure_url} alt="user_avatar" className='full-size'/>}*/}
             <MyAvatarEditor
               onChange={this.handleChange}
               image={avatar && avatar.secure_url ? avatar.secure_url : defaultImage}
-              // ref={this.setEditorRef}
             />
-
-            {/*<input type="file" placeholder='Change avatar' onChange={this.handleFileUpload}/>*/}
           </div>
 
           <div className="d-alex ">
             <input
               type="text"
               name="login"
-              defaultValue={login}
+              value={login}
               placeholder="login"
               onChange={this.handleChange}
             />
             <input
               type="text"
               name="email"
-              defaultValue={email}
+              value={email}
               placeholder="email"
               onChange={this.handleChange}
             />
             <input
               type="password"
               name="password"
+              value={password}
               placeholder="password"
               onChange={this.handleChange}
             />
@@ -156,9 +158,7 @@ class Profile extends Component {
 }
 
 const mapStateToProps = store => ({
-  newAvatar: store.chat.newAvatar,
-  user: store.chat.currentUser,
-  loading: store.chat.loading
+  chat: store.chat
 });
 
 const mapDispatchToProps = dispatch => ({

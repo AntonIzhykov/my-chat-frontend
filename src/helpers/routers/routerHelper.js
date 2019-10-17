@@ -4,6 +4,8 @@ import ChatLayout from '../../containers/ChatLayoutWrapper';
 import About from '../../components/About';
 import Profile from '../../components/Profile';
 import PrivateRoute from '../../components/PrivatRoute';
+import RoomList from '../../components/RoomList';
+import CurrentRoom from '../../containers/CurrentRoom';
 
 export const AppRouter = props => {
   return (
@@ -14,3 +16,10 @@ export const AppRouter = props => {
     </Switch>
   );
 };
+
+export const ChatLayoutRouter = props => (
+  <Switch>
+    <Route exact path="/chat" component={RoomList} />
+    <PrivateRoute path="/chat/:id" component={CurrentRoom} online={props.online} />
+  </Switch>
+);

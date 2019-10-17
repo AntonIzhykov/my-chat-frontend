@@ -3,8 +3,8 @@ import * as authActions from '../../auth/actions';
 import { store } from '../../index';
 import { history } from '../../index';
 import TokenStorage from '../token';
-import Swal from 'sweetalert2';
 import { defaultWs } from '../config';
+import { showError } from '../../../helpers';
 
 export let ws;
 export const connect = () => {
@@ -19,7 +19,6 @@ export const connect = () => {
   ws.onclose = () => {
     console.log('DISCONNECTED');
     store.dispatch(authActions.setOffline());
-    // ws.binaryType = "arraybuffer";
     connect();
   };
 
@@ -29,6 +28,9 @@ export const connect = () => {
 
     if (serverMessage.currentRoom) {
       store.dispatch(actions.setCurrentRoom(serverMessage.currentRoom));
+    }
+    if (serverMessage.lastRoom) {
+      store.dispatch(actions.setLastRoom(serverMessage.lastRoom));
     }
     if (serverMessage.messageBody) {
       store.dispatch(actions.pushNewMessage(serverMessage));
@@ -54,11 +56,7 @@ export const connect = () => {
     if (serverMessage.roomDeleted) {
       store.dispatch(actions.roomDeleted(serverMessage.roomDeleted));
       if (store.getState().chat.currentUser.currentRoom === serverMessage.roomDeleted) {
-        Swal.fire({
-          type: 'error',
-          title: 'Oops...',
-          text: 'This room has been deleted!'
-        });
+        showError('error', 'Oops!', 'This room has been deleted!');
         history.push('/chat');
       }
     }
@@ -72,27 +70,14 @@ export const connect = () => {
     }
     if (serverMessage.error) {
       store.dispatch(authActions.setLoadingFalse());
-      Swal.fire({
-        type: 'error',
-        title: 'Oops... Something went wrong...',
-        text: serverMessage.error.message
-      });
+      showError('error', 'Oops... Something went wrong...', serverMessage.error.message);
     }
   };
 
   ws.onerror = error => {
-    console.log(error);
-    if (ws && ws.readyState) {
-      Swal.fire({
-        type: 'error',
-        title: 'Oops... Something went wrong...',
-        text: error.message
-      });
-    }
+    if (ws && ws.readyState) showError('error', 'Oops... Something went wrong...', error.message);
   };
 };
-
-// connect();
 
 export const wsSend = data => {
   const token = TokenStorage.getItemFromLocalStorage();
