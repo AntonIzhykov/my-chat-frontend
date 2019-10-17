@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactAvatarEditor from 'react-avatar-editor';
 import Dropzone from 'react-dropzone';
-import image2base64 from 'image-to-base64';
+import imageDataURI from 'image-data-uri';
 import { saveNewAvatar } from '../../store/chat';
 import { connect } from 'react-redux';
 
@@ -32,15 +32,9 @@ class MyAvatarEditor extends React.Component {
   toBase64 = async image => {
     let img;
     if (!image.includes('data:image')) {
-      await image2base64(image)
-        .then(response => {
-          img = 'data:image/jpeg;base64,' + response;
-        })
-        .catch(error => {
-          this.setState({
-            error
-          });
-        });
+      await imageDataURI.encodeFromURL(image).then(res => {
+        img = res;
+      });
     } else {
       img = image;
     }
@@ -48,7 +42,6 @@ class MyAvatarEditor extends React.Component {
   };
 
   handlePreview = data => {
-    console.log(data);
     const { scale, width, height, borderRadius } = this.state;
 
     if (!this.ref) return null;
@@ -106,16 +99,8 @@ class MyAvatarEditor extends React.Component {
 
     return (
       <React.Fragment>
-        <Dropzone
-          onDrop={this.handleDrop}
-          disableClick
-          multiple={false}
-          // style={{ width: this.state.width, height: this.state.height, marginBottom: '35px' }}
-        >
+        <Dropzone onDrop={this.handleDrop} disableClick multiple={false}>
           {({ getRootProps, getInputProps }) => {
-            console.log('getRootProps', getRootProps);
-            console.log('getInputProps', getInputProps);
-
             return (
               <React.Fragment>
                 <div {...getRootProps()}>
