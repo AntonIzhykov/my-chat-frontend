@@ -2,8 +2,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: $ghost-white;
+  background: $soft-green-light;
   padding: 0.5rem 3rem;
+
+  h2 {
+    color: $warm-orange-dark
+  }
 
   .link-group, .hello {
     width: 15%;

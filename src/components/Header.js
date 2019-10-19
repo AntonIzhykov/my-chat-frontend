@@ -62,7 +62,9 @@ class Header extends Component {
             <span className="form-error mr-2">{error}</span>
             <input type="text" ref={element => (this.inputLogin = element)} />
             <input type="password" ref={element => (this.inputPassword = element)} />
-            <button onClick={this.handleSubmit}>Login</button>
+            <button className="btn" onClick={this.handleSubmit}>
+              Login
+            </button>
           </form>
         )}
       </div>

@@ -1,11 +1,14 @@
 .about {
   height: 100%;
   text-align: center;
-  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 3rem;
 
   .description {
     width: 75%;
-    margin: auto;
     text-align: justify;
   };
 }

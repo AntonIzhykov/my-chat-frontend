@@ -3,6 +3,7 @@
   font-size: $size14;
   border: none;
   background-color: $warm-orange-light;
+  margin: 0.5rem;
 
   &:hover,
   &:active {
@@ -37,10 +38,6 @@
       background: none;
     }
   }
-}
-
-.cursor-pointer {
-  cursor: pointer;
 }
 
 .clipped {

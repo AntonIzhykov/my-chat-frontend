@@ -13,5 +13,36 @@
     transform: translate(-50%, -50%);
     width: 40%;
     background: white;
+    border: 2px solid $warm-orange-light;
+    padding: 2rem;
+
+    span {
+      color: $soft-green-main;
+    }
+
+    .info-wrapper {
+      position: relative;
+      width: 50%;
+      margin: 0 auto 1rem;
+
+      .info {
+        position: absolute;
+        padding: 1rem;
+        left: 100%;
+        top: 0;
+        width: 100%;
+        transform: translateY(-50%);
+        flex-direction: column;
+        background: white;
+        border: 1px solid $warm-orange-dark;
+        border-radius: 2rem;
+
+        div {
+          margin: 0.5rem auto;
+          width: 100%;
+          //border-bottom: 1px solid $soft-green-dark;
+        }
+      }
+    }
   }
 }

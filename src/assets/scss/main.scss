@@ -7,7 +7,6 @@
 @import './partials/helpers';
 @import './partials/buttons';
 @import './partials/inputs';
-@import './partials/loading';
 @import './partials/exports';
 @import './partials/buttons';
 
@@ -18,3 +17,6 @@
 @import "views/about";
 @import "views/profile";
 @import "views/report";
+@import 'views/loading';
+@import 'views/myAvatarEditor';
+

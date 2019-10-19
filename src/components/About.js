@@ -36,7 +36,9 @@ class About extends Component {
           The goal of this project - create some chat api with webSockets and node.js as a server. I
           try to use new futures such as unit testing and webSockets.
         </p>
-        <button onClick={this.handleGetInfo}>Get report</button>
+        <button className="btn" onClick={this.handleGetInfo}>
+          Get report
+        </button>
       </div>
     );
   }

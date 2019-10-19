@@ -199,7 +199,9 @@ class Report extends Component {
               Have a nice day, <span>{user.login}</span>!
             </div>
           </div>
-          <button onClick={closeReport}>Close</button>
+          <button className="mt-2 btn" onClick={closeReport}>
+            Close
+          </button>
         </div>
       </div>
     );

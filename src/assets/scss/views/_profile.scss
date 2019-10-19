@@ -2,10 +2,26 @@
   height: 100%;
   width: 50%;
   margin: auto;
+  text-align: center;
+  padding-top: 2rem;
 
+  .avatar-zone {
+    //width: 100%;
+    height: auto;
+  }
 
-}
-.avatar-label {
-  width: 200px;
-  height: auto;
+  .input-group {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      margin-bottom: 1rem;
+      border: none;
+      padding: 0.5rem;
+
+      &:Focus {
+        border: 1px dashed $soft-green-dark;
+      }
+    }
+  }
 }

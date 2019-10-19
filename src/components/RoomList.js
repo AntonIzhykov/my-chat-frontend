@@ -37,7 +37,9 @@ class RoomList extends Component {
                 this.inputRoomName = element;
               }}
             />
-            <button onClick={this.handleCreateRoom}>Create your own room!</button>
+            <button className="btn" onClick={this.handleCreateRoom}>
+              Create your own room!
+            </button>
           </div>
         </div>
         <div className="list">
@@ -51,7 +53,10 @@ class RoomList extends Component {
                     </NavLink>
 
                     {room.roomCreator === currentUser._id && (
-                      <button onClick={this.handleDeleteRoom(room._id, currentUser._id)}>
+                      <button
+                        className="btn"
+                        onClick={this.handleDeleteRoom(room._id, currentUser._id)}
+                      >
                         Delete room
                       </button>
                     )}
