@@ -6,6 +6,7 @@ import * as wsActions from '../store/api/webSockets/actions';
 import TokenStorage from '../store/api/token';
 import { history } from '../store';
 import { handleAuthentication } from '../store/auth';
+
 class Header extends Component {
   handleSubmit = e => {
     if (e) e.preventDefault();
@@ -33,30 +34,39 @@ class Header extends Component {
         : pathname === '/chat'
         ? 'Room list'
         : pathname === '/profile'
-        ? 'Profile settings'
+        ? ' Profile settings'
         : currentRoom
         ? `#${currentRoom.roomName}`
         : '';
     return (
       <div className="header">
         <div className="link-group">
-          {pathname !== '/' && (
-            <button onClick={() => history.goBack()}>
-              <i className="fas fa-arrow-circle-left" />
-            </button>
+          {pathname === '/' ? (
+            <span className="mr-2" />
+          ) : (
+            <span className="icon-undo2 fz-16 cursor-pointer" onClick={() => history.goBack()} />
           )}
-          <NavLink to="/">Main</NavLink>
-          {isOnline && <NavLink to="/chat">Chat</NavLink>}
+          <NavLink to="/">
+            <span className="icon-home fz-20"> Main</span>
+          </NavLink>
+          {isOnline && (
+            <NavLink to="/chat">
+              <span className="icon-bubbles4 fz-24"> Chat</span>
+            </NavLink>
+          )}
         </div>
         <div>
-          <h2>{h2}</h2>
+          <h2 className={`${pathname === '/profile' && 'icon-cogs'}`}>{h2}</h2>
         </div>
         {!_.isEmpty(user) ? (
-          <div className="hello">
-            Hello, <NavLink to="/profile">{user.login}</NavLink>
-            <button onClick={this.handleLogout}>
-              <i className="fas fa-door-open" />
-            </button>
+          <div className="hello fz-24">
+            <NavLink to="/profile">
+              <span className="icon-user-tie fz-24"> {user.login}</span>
+            </NavLink>
+            <span
+              onClick={this.handleLogout}
+              className="icon-enter btn bg-reverse fz-24 cursor-pointer"
+            />
           </div>
         ) : (
           <form onSubmit={this.handleSubmit}>

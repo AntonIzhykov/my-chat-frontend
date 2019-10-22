@@ -141,9 +141,7 @@ class CurrentRoom extends Component {
             )}
           </div>
           <div className="send-message-button">
-            <button type="submit" className="send-message">
-              <i className="fas fa-paper-plane" />
-            </button>
+            <button type="submit" className="send-message icon-reply fz-32" />
           </div>
         </form>
       </div>

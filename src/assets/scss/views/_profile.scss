@@ -3,10 +3,9 @@
   width: 50%;
   margin: auto;
   text-align: center;
-  padding-top: 2rem;
+  padding-top: 1rem;
 
   .avatar-zone {
-    //width: 100%;
     height: auto;
   }
 
@@ -15,8 +14,7 @@
     flex-direction: column;
 
     input {
-      margin-bottom: 1rem;
-      border: none;
+      border: 1px solid transparent;
       padding: 0.5rem;
 
       &:Focus {

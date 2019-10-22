@@ -9,8 +9,9 @@
 @import './partials/inputs';
 @import './partials/exports';
 @import './partials/buttons';
+@import './partials/icoMoon';
 
-@import './views/header';
+@import "views/header";
 @import "views/chatLayout";
 @import "views/message";
 @import "views/sidebar";

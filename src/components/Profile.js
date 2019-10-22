@@ -11,10 +11,13 @@ class Profile extends Component {
     login: '',
     email: '',
     defaultImage: 'https://miro.medium.com/max/360/1*W35QUSvGpcLuxPo3SRTH4w.png',
-    password: '',
+    mainPassword: '',
     newPassword: '',
     confirmNewPassword: '',
-    showNewPass: false,
+    showNewPasswordsField: false,
+    showMainPassword: false,
+    showNewPassword: false,
+    showConfirmNewPassword: false,
     error: ''
   };
 
@@ -32,19 +35,19 @@ class Profile extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { password, login, email, newPassword, confirmNewPassword, error } = this.state;
+    const { mainPassword, login, email, newPassword, confirmNewPassword, error } = this.state;
     const {
       chat: { newAvatar }
     } = this.props;
 
-    if (!password) return showError('error', 'Error!', 'Please, enter your password!');
+    if (!mainPassword) return showError('error', 'Error!', 'Please, enter your password!');
     if (!login) return showError('error', 'Error!', 'You can`t use an empty name!');
     if (error) return showError('error', 'Error!', error);
     if (newPassword && newPassword !== confirmNewPassword)
       return showError('error', 'Error!', 'Wrong confirm new password!');
 
     const userData = {
-      password,
+      password: mainPassword,
       login,
       email,
       newPassword,
@@ -58,7 +61,13 @@ class Profile extends Component {
   handleShowNewPassword = e => {
     if (e) e.preventDefault();
     this.setState({
-      showNewPass: !this.state.showNewPass
+      showNewPasswordsField: !this.state.showNewPasswordsField
+    });
+  };
+
+  handleShowPassword = e => {
+    this.setState({
+      [`show${e.target.id}`]: !this.state[`show${e.target.id}`]
     });
   };
 
@@ -72,11 +81,14 @@ class Profile extends Component {
     const {
       login,
       email,
-      showNewPass,
-      password,
+      mainPassword,
       defaultImage,
       newPassword,
-      confirmNewPassword
+      confirmNewPassword,
+      showNewPasswordsField,
+      showMainPassword,
+      showNewPassword,
+      showConfirmNewPassword
     } = this.state;
     const {
       chat: {
@@ -88,8 +100,8 @@ class Profile extends Component {
     return (
       <div className="profile">
         {loading && <Loader />}
-        <h3>{user.login}</h3>
-        <div className="d-flex justify-content-around" onSubmit={this.handleSubmit}>
+        <h3 className="icon-user-tie">{user.login}</h3>
+        <div className="d-flex justify-content-around mt-2" onSubmit={this.handleSubmit}>
           <MyAvatarEditor
             width={150}
             height={150}
@@ -98,46 +110,79 @@ class Profile extends Component {
           />
 
           <div className="input-group">
-            <input
-              type="text"
-              name="login"
-              value={login}
-              placeholder="login"
-              onChange={this.handleChange}
-            />
-            <input
-              type="text"
-              name="email"
-              value={email}
-              placeholder="email"
-              onChange={this.handleChange}
-            />
-            <input
-              type="password"
-              name="password"
-              value={password}
-              placeholder="password"
-              onChange={this.handleChange}
-            />
+            <div className="d-flex align-items-center mb-1">
+              <span className="icon-happy mr-1 fz-20" />
+              <input
+                type="text"
+                name="login"
+                value={login}
+                placeholder="login"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="d-flex align-items-center mb-1">
+              <span className="icon-mail4 mr-1 fz-20" />
+              <input
+                type="text"
+                name="email"
+                value={email}
+                placeholder="email"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="d-flex align-items-center mb-1">
+              <span
+                className={`${
+                  showMainPassword ? 'icon-eye-blocked' : 'icon-eye'
+                } mr-1 fz-20 cursor-pointer`}
+                id="MainPassword"
+                onClick={this.handleShowPassword}
+              />
+              <input
+                type={`${showMainPassword ? 'text' : 'password'}`}
+                name="mainPassword"
+                value={mainPassword}
+                placeholder="password"
+                onChange={this.handleChange}
+              />
+            </div>
             <button className="btn" onClick={this.handleShowNewPassword}>
               Change password
             </button>
-            {showNewPass && (
+            {showNewPasswordsField && (
               <div className="d-flex flex-column">
-                <input
-                  type="password"
-                  name="newPassword"
-                  value={newPassword}
-                  placeholder="Enter new password"
-                  onChange={this.handleChange}
-                />
-                <input
-                  type="password"
-                  name="confirmNewPassword"
-                  value={confirmNewPassword}
-                  placeholder="Confirm new password"
-                  onChange={this.handleChange}
-                />
+                <div>
+                  <span
+                    className={`${
+                      showNewPassword ? 'icon-eye-blocked' : 'icon-eye'
+                    } mr-1 fz-20 cursor-pointer`}
+                    id="NewPassword"
+                    onClick={this.handleShowPassword}
+                  />
+                  <input
+                    type={`${showNewPassword ? 'text' : 'password'}`}
+                    name="newPassword"
+                    value={newPassword}
+                    placeholder="Enter new password"
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div>
+                  <span
+                    className={`${
+                      showConfirmNewPassword ? 'icon-eye-blocked' : 'icon-eye'
+                    } mr-1 fz-20 cursor-pointer`}
+                    id="ConfirmNewPassword"
+                    onClick={this.handleShowPassword}
+                  />
+                  <input
+                    type={`${showConfirmNewPassword ? 'text' : 'password'}`}
+                    name="confirmNewPassword"
+                    value={confirmNewPassword}
+                    placeholder="Confirm password"
+                    onChange={this.handleChange}
+                  />
+                </div>
               </div>
             )}
             <button className="btn bg-primary" type="submit" onClick={this.handleSubmit}>

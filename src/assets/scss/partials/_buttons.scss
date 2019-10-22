@@ -18,6 +18,13 @@
     background-color: $active !important;
   }
 
+  &.bg-reverse {
+    background-color: $soft-green-light;
+  }
+  &.bg-reverse:hover {
+    background-color: $active !important;
+  }
+
   &:focus {
     outline: none !important;
     box-shadow: none;

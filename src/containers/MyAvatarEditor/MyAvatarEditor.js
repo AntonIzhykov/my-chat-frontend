@@ -150,17 +150,31 @@ class MyAvatarEditor extends React.Component {
             onChange={e => this.setImageInBase64(e.target.files[0])}
           />
           <label htmlFor="file-avatar">
-            choose your <span className="font-weight-bold">file</span> or drop it{' '}
-            <span className="font-weight-bold">here</span>
+            <div className="icon-download2 fz-24" />
+            <div>
+              choose your <span className="font-weight-bold">file</span>
+            </div>
+            <div>
+              or drop it <span className="font-weight-bold">here</span>
+            </div>
           </label>
           {isEditing && (
-            <div className="editor">
-              Load from url:
-              <div>
-                <input type="text" value={tempImage} onChange={this.handleChangeTempImage} />
-                <button className="btn" onClick={this.handleLoadTempImage}>
-                  Download image
-                </button>
+            <div className="editor fz-20">
+              <div className="d-flex align-items-center">
+                <span className="icon-link fz-20" />
+                <input
+                  type="text"
+                  className="ml-1 p-1 icon-link"
+                  value={tempImage}
+                  placeholder="Put url here..."
+                  onChange={this.handleChangeTempImage}
+                />
+                {!!tempImage && (
+                  <span
+                    onClick={this.handleLoadTempImage}
+                    className="icon-download2 btn fz-16 cursor-pointer"
+                  />
+                )}
               </div>
               Zoom:
               <input
@@ -183,32 +197,29 @@ class MyAvatarEditor extends React.Component {
                 defaultValue="0"
               />
               <br />
-              <div className="d-flex align-items-center">
-                Rotate:
-                <button className="m-1" onClick={this.handleRotate(true)}>
-                  Left
-                </button>
-                <button className="" onClick={this.handleRotate(false)}>
-                  Right
-                </button>
+              <div className="d-flex flex-column justify-content-center align-items-center">
+                <div>Rotate:</div>
+                <div className="d-flex">
+                  <button className="m-1 btn icon-undo" onClick={this.handleRotate(true)} />
+                  <button className="icon-redo btn" onClick={this.handleRotate(false)} />
+                </div>
               </div>
               <br />
-              <div className="btn-group">
-                <button className="btn bg-primary" onClick={this.handleSaveImage}>
-                  Save image settings
-                </button>
-              </div>
             </div>
           )}
         </div>
-        {!isEditing && (
+        {isEditing ? (
+          <button className="btn bg-primary mt-2" onClick={this.handleSaveImage}>
+            <span className="icon-reply fz-24">Save image</span>
+          </button>
+        ) : (
           <button
-            className="btn"
+            className="btn mt-2"
             onClick={() => {
               this.setState({ isEditing: true });
             }}
           >
-            Edit
+            <span className="icon-equalizer fz-24"> Edit image</span>
           </button>
         )}
       </div>

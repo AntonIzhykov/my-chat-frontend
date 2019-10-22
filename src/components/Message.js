@@ -40,20 +40,14 @@ class Message extends Component {
           {messageBody}
           {isCurrentUser && (
             <span
-              className="msg-edit"
+              className="msg-edit icon-pencil2"
               title="Edit message"
               onClick={handleEditMessage(_id, messageBody)}
-            >
-              <i className="fas fa-edit" />
-            </span>
+            />
           )}
         </div>
         <div className="time-wrapper">
-          {isEdited && (
-            <span className="editing-time">
-              <i className="fas fa-pencil-alt" /> edited
-            </span>
-          )}
+          {isEdited && <span className="editing-time icon-pencil">edited</span>}
           <span className="time">{moment(timeCreate).format('HH:mm')}</span>
         </div>
       </div>

@@ -5,13 +5,15 @@
 
   label {
     cursor: pointer;
-    border: 2px solid;
-    padding: 3px;
+    width: 100%;
   }
 
 
   .drop-zone {
     position: relative;
+    border: 2px solid;
+    padding: 1rem;
+    margin-right: 1rem;
   }
 
   .editor {
@@ -21,5 +23,13 @@
     right: 100%;
     top: 0;
     margin-right: 2rem;
+    width: 100%;
+
+    input {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0.5rem;
+    }
   }
 }
