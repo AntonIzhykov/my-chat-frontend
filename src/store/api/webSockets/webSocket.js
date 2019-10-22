@@ -19,7 +19,8 @@ export const connect = () => {
   ws.onclose = () => {
     console.log('DISCONNECTED');
     store.dispatch(authActions.setOffline());
-    connect();
+    const token = TokenStorage.getItemFromLocalStorage();
+    token && connect();
   };
 
   ws.onmessage = response => {
