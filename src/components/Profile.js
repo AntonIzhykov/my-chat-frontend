@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import { setLoadingTrue } from '../store/auth/actions';
 import Loader from './Loader';
 import { handleUpdatingProfile } from '../store/chat';
@@ -31,20 +30,12 @@ class Profile extends Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (_.isEmpty(prevProps.user) && !_.isEmpty(this.props.user)) {
-      const { login, email } = this.props.user;
-      this.setState({
-        login,
-        email
-      });
-    }
-  }
-
   handleSubmit = e => {
     e.preventDefault();
     const { password, login, email, newPassword, confirmNewPassword, error } = this.state;
-    const newAvatar = this.props.newAvatar;
+    const {
+      chat: { newAvatar }
+    } = this.props;
 
     if (!password) return showError('error', 'Error!', 'Please, enter your password!');
     if (!login) return showError('error', 'Error!', 'You can`t use an empty name!');
@@ -91,22 +82,22 @@ class Profile extends Component {
       chat: {
         loading,
         currentUser: user,
-        currentUser: { avatar }
+        currentUser: { avatar: { secure_url } = {} }
       }
     } = this.props;
     return (
       <div className="profile">
         {loading && <Loader />}
         <h3>{user.login}</h3>
-        <div className="d-flex" onSubmit={this.handleSubmit}>
-          <div className="avatar-label">
-            <MyAvatarEditor
-              onChange={this.handleChange}
-              image={avatar && avatar.secure_url ? avatar.secure_url : defaultImage}
-            />
-          </div>
+        <div className="d-flex justify-content-around" onSubmit={this.handleSubmit}>
+          <MyAvatarEditor
+            width={150}
+            height={150}
+            onChange={this.handleChange}
+            image={secure_url || defaultImage}
+          />
 
-          <div className="d-alex ">
+          <div className="input-group">
             <input
               type="text"
               name="login"
@@ -128,9 +119,11 @@ class Profile extends Component {
               placeholder="password"
               onChange={this.handleChange}
             />
-            <button onClick={this.handleShowNewPassword}>Change password</button>
+            <button className="btn" onClick={this.handleShowNewPassword}>
+              Change password
+            </button>
             {showNewPass && (
-              <div>
+              <div className="d-flex flex-column">
                 <input
                   type="password"
                   name="newPassword"
@@ -147,7 +140,7 @@ class Profile extends Component {
                 />
               </div>
             )}
-            <button type="submit" onClick={this.handleSubmit}>
+            <button className="btn bg-primary" type="submit" onClick={this.handleSubmit}>
               Save
             </button>
           </div>

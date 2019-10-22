@@ -1,11 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-
-import 'assets/css/main.css';
 import { AppRouter } from '../helpers';
 import Header from './Header';
-import { connect } from 'react-redux';
-import Loader from './Loader';
+import 'assets/css/main.css';
 
 class App extends React.Component {
   render() {
@@ -14,7 +12,6 @@ class App extends React.Component {
     } = this.props;
     return (
       <div id="content" className="App">
-        {!isOnline && <Loader />}
         <Header />
         <AppRouter online={isOnline} />
       </div>

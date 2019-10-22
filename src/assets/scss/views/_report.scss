@@ -40,7 +40,8 @@
         div {
           margin: 0.5rem auto;
           width: 100%;
-          //border-bottom: 1px solid $soft-green-dark;
+          overflow-x: hidden;
+          text-overflow: ellipsis;
         }
       }
     }

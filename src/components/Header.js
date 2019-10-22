@@ -24,7 +24,7 @@ class Header extends Component {
   render() {
     const {
       chat: { currentUser: user, currentRoom },
-      auth: { error }
+      auth: { error, isOnline }
     } = this.props;
     const { pathname } = this.props.location;
     const h2 =
@@ -35,7 +35,7 @@ class Header extends Component {
         : pathname === '/profile'
         ? 'Profile settings'
         : currentRoom
-        ? `Room #${currentRoom.roomName}`
+        ? `#${currentRoom.roomName}`
         : '';
     return (
       <div className="header">
@@ -45,7 +45,8 @@ class Header extends Component {
               <i className="fas fa-arrow-circle-left" />
             </button>
           )}
-          |<NavLink to="/">Main</NavLink>|<NavLink to="/chat">Chat</NavLink>|
+          <NavLink to="/">Main</NavLink>
+          {isOnline && <NavLink to="/chat">Chat</NavLink>}
         </div>
         <div>
           <h2>{h2}</h2>

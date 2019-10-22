@@ -7,57 +7,55 @@ class Message extends Component {
     const {
       user,
       authors,
-      message: { _id, author, messageBody, timeCreate, timeEdit, isEdited },
+      message: { _id, author, messageBody, timeCreate, isEdited },
+      theSameAuthor,
       handleEditMessage,
-      handleDeleteMessage,
       handleClickName
     } = this.props;
 
     const messageAuthor = authors.filter(user => user._id === author._id)[0];
 
+    const avatarStyle = {
+      backgroundImage: `url(${messageAuthor.avatar ? messageAuthor.avatar.secure_url : ''})`
+    };
+
+    const isCurrentUser = messageAuthor._id === user._id;
+
     return (
       <div
-        className={`${messageAuthor._id === user._id ? 'flex-row-reverse' : ''} message-wrapper`}
+        className={`${theSameAuthor ? 'same-author' : ''} ${
+          isCurrentUser ? 'is-current-user' : ''
+        } message-wrapper`}
         key={_id}
       >
-        <div className="avatar">
-          {messageAuthor && messageAuthor.avatar && (
-            <img src={messageAuthor.avatar.secure_url} className="full-size" alt="avatar" />
+        {!theSameAuthor && (
+          <>
+            <div className="avatar" style={avatarStyle} />
+            <span className="nickname" onClick={handleClickName(messageAuthor.login)}>
+              {`${isCurrentUser ? 'You:' : `${messageAuthor.login}:`}`}
+            </span>
+          </>
+        )}
+        <div className="message-body">
+          {messageBody}
+          {isCurrentUser && (
+            <span
+              className="msg-edit"
+              title="Edit message"
+              onClick={handleEditMessage(_id, messageBody)}
+            >
+              <i className="fas fa-edit" />
+            </span>
           )}
         </div>
-        <div className="message-container">
-          <div className={`${messageAuthor._id === user._id ? 'flex-row-reverse' : ''} up-line`}>
-            <span
-              className={`${
-                messageAuthor._id === user._id ? 'font-weight-lighter' : 'font-weight-bolder'
-              } username`}
-              onClick={handleClickName(messageAuthor.login)}
-            >
-              {messageAuthor._id === user._id ? 'You:' : `${messageAuthor.login}:`}
+        <div className="time-wrapper">
+          {isEdited && (
+            <span className="editing-time">
+              <i className="fas fa-pencil-alt" /> edited
             </span>
-            <div className="time-wrapper">
-              {isEdited && (
-                <span className="time edited">
-                  <i className="fas fa-pencil-alt" /> edited {moment(timeEdit).format('HH:mm:ss')}
-                </span>
-              )}
-              <span className="time">{moment(timeCreate).format('HH:mm')}</span>
-            </div>
-          </div>
-          <div className="message-body">{messageBody}</div>
+          )}
+          <span className="time">{moment(timeCreate).format('HH:mm')}</span>
         </div>
-        {messageAuthor._id === user._id ? (
-          <div className="btn-group">
-            <button className="button" onClick={handleEditMessage(_id, messageBody)}>
-              <i className="fas fa-edit" />
-            </button>
-            <button className="button" onClick={handleDeleteMessage(_id)}>
-              <i className="fas fa-trash" />
-            </button>
-          </div>
-        ) : (
-          <div className="btn-group" />
-        )}
       </div>
     );
   }

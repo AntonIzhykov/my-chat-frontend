@@ -9,17 +9,21 @@ class ContentWrapper extends Component {
   }
 
   render() {
-    const { auth } = this.props;
+    const {
+      auth: { isOnline },
+      chat: { currentUser: { _id } = {} }
+    } = this.props;
     return (
       <div className="content-wrapper">
-        {!auth.isOnline && <Loader />}
+        {_id && !isOnline && <Loader />}
         <App />
       </div>
     );
   }
 }
 const mapStateToProps = store => ({
-  auth: store.auth
+  auth: store.auth,
+  chat: store.chat
 });
 
 const mapDispatchToProps = {

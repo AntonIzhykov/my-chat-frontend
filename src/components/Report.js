@@ -49,8 +49,8 @@ class Report extends Component {
     const allMessagesTexts = allMessages
       .map(message => message.messageBody)
       .sort((a, b) => a.length - b.length);
-    const longestMessage = allMessagesTexts[0];
-    const shortestMessage = allMessagesTexts[allMessagesTexts.length - 1];
+    const shortestMessage = allMessagesTexts[0];
+    const longestMessage = allMessagesTexts[allMessagesTexts.length - 1];
 
     const mostSpeakingRoom = allRooms.sort((a, b) => a.messages.length - b.messages.length)[
       allRooms.length - 1
@@ -62,8 +62,8 @@ class Report extends Component {
       .sort((a, b) => a.length - b.length);
     const firstUserMessage = createMinDate(userMessagesTimes);
     const lastUserMessage = createMaxDate(userMessagesTimes);
-    const longestUserMessage = userMessagesTexts[0];
-    const shortestUserMessage = userMessagesTexts[userMessagesTexts.length - 1];
+    const shortestUserMessage = userMessagesTexts[0];
+    const longestUserMessage = userMessagesTexts[userMessagesTexts.length - 1];
 
     this.setState({
       firstMessage,
@@ -143,7 +143,9 @@ class Report extends Component {
               className="info-wrapper"
             >
               in <span>{allRooms.length}</span> rooms.
-              <div className={`${allRoomsHovered ? 'd-flex' : 'd-none'} info`}>
+              <div
+                className={`${allRoomsHovered && allRooms.length > 0 ? 'd-flex' : 'd-none'} info`}
+              >
                 <div>
                   The most speaking room is <span>{roomName}</span>
                 </div>
@@ -159,7 +161,17 @@ class Report extends Component {
               className="info-wrapper"
             >
               There are <span>{allUsers.length}</span> users.
-              <div className={`${allUsersHovered ? 'd-flex' : 'd-none'} info`}>lalala</div>
+              <div
+                className={`${allUsersHovered && allUsers.length > 0 ? 'd-flex' : 'd-none'} info`}
+              >
+                <ul>
+                  {allUsers.map(user => (
+                    <li key={user._id}>
+                      <div>{user.login}</div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
           <div className="user-report">
@@ -171,7 +183,11 @@ class Report extends Component {
               className="info-wrapper"
             >
               <span>{userMessages.length}</span> messages
-              <div className={`${userMessagesHovered ? 'd-flex' : 'd-none'} info`}>
+              <div
+                className={`${
+                  userMessagesHovered && userMessages.length > 0 ? 'd-flex' : 'd-none'
+                } info`}
+              >
                 <div>
                   your first messages was created at <span>{firstUserMessage}</span>
                 </div>
@@ -193,7 +209,13 @@ class Report extends Component {
               className="info-wrapper"
             >
               and <span>{userRooms.length}</span> room
-              <div className={`${userRoomsHovered ? 'd-flex' : 'd-none'} info`}>lalala</div>
+              <div
+                className={`${userRoomsHovered && userRooms.length > 0 ? 'd-flex' : 'd-none'} info`}
+              >
+                {userRooms.map(room => (
+                  <div key={room._id}>{room.roomName}</div>
+                ))}
+              </div>
             </div>
             <div>
               Have a nice day, <span>{user.login}</span>!

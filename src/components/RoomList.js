@@ -48,10 +48,9 @@ class RoomList extends Component {
                 return (
                   <div className="room" key={room._id}>
                     <NavLink to={`/chat/${room._id}`}>
-                      <div className="online">Online: {room.users.length}</div>
-                      {room.roomName}
+                      <span>{room.roomName}</span>
+                      <span className="online">Online: {room.users.length}</span>
                     </NavLink>
-
                     {room.roomCreator === currentUser._id && (
                       <button
                         className="btn"

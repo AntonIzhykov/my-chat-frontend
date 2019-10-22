@@ -22,7 +22,10 @@ class About extends Component {
   };
 
   render() {
-    const { report, loading } = this.props.auth;
+    const {
+      auth: { report, loading, isOnline },
+      chat: { currentUser: { _id } = {} }
+    } = this.props;
     const { showReport } = this.state;
     return (
       <div className="about">
@@ -36,16 +39,19 @@ class About extends Component {
           The goal of this project - create some chat api with webSockets and node.js as a server. I
           try to use new futures such as unit testing and webSockets.
         </p>
-        <button className="btn" onClick={this.handleGetInfo}>
-          Get report
-        </button>
+        {isOnline && _id && (
+          <button className="btn" onClick={this.handleGetInfo}>
+            Get report
+          </button>
+        )}
       </div>
     );
   }
 }
 
 const mapStateToProps = store => ({
-  auth: store.auth
+  auth: store.auth,
+  chat: store.chat
 });
 
 const mapDispatchToProps = {
