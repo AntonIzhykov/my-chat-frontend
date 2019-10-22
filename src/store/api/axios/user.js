@@ -25,3 +25,17 @@ export const getReport = token => {
     }
   });
 };
+
+export const loadTempImage = (token, img) => {
+  return axios({
+    method: 'post',
+    url: `${defaultUrl}/tempImg`,
+    headers: {
+      authorization: token,
+      'Content-Type': 'application/json'
+    },
+    data: {
+      img
+    }
+  });
+};

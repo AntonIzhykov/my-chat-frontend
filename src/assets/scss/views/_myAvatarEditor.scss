@@ -1,0 +1,25 @@
+.avatar-zone {
+  *:focus {
+      outline: none;
+  }
+
+  label {
+    cursor: pointer;
+    border: 2px solid;
+    padding: 3px;
+  }
+
+
+  .drop-zone {
+    position: relative;
+  }
+
+  .editor {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    right: 100%;
+    top: 0;
+    margin-right: 2rem;
+  }
+}

@@ -68,8 +68,9 @@ export const updateProfileRequest = () => ({
   type: con.UPDATE_PROFILE_REQUEST
 });
 
-export const updateProfileRSuccess = () => ({
-  type: con.UPDATE_PROFILE_SUCCESS
+export const updateProfileRSuccess = newUser => ({
+  type: con.UPDATE_PROFILE_SUCCESS,
+  payload: newUser
 });
 
 export const updateProfileRFailure = error => ({
@@ -80,4 +81,17 @@ export const updateProfileRFailure = error => ({
 export const saveNewAvatar = image => ({
   type: con.SAVE_NEW_AVATAR,
   payload: image
+});
+
+export const loadTempImageRequest = () => ({
+  type: con.LOAD_TEMP_IMAGE_REQUEST
+});
+
+export const loadTempImageSuccess = () => ({
+  type: con.LOAD_TEMP_IMAGE_SUCCESS
+});
+
+export const loadTempImageFailure = error => ({
+  type: con.LOAD_TEMP_IMAGE_FAILURE,
+  payload: error
 });

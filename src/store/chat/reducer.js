@@ -160,7 +160,8 @@ export const chat = (state = initialState, action) => {
     case con.UPDATE_PROFILE_SUCCESS:
       return {
         ...state,
-        loading: false
+        loading: false,
+        currentUser: action.payload
       };
 
     case con.UPDATE_PROFILE_FAILURE:
@@ -174,6 +175,25 @@ export const chat = (state = initialState, action) => {
       return {
         ...state,
         newAvatar: action.payload
+      };
+
+    case con.LOAD_TEMP_IMAGE_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case con.LOAD_TEMP_IMAGE_SUCCESS:
+      return {
+        ...state,
+        loading: false
+      };
+
+    case con.LOAD_TEMP_IMAGE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
       };
 
     default:
