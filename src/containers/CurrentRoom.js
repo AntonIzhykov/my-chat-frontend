@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as wsActions from '../store/api/webSockets/actions';
 import _ from 'lodash';
-import moment from 'moment/moment';
 import autosize from 'autosize';
-import Message from '../components/Message';
+import Messages from './Messages';
 
 class CurrentRoom extends Component {
   state = {
@@ -74,6 +73,7 @@ class CurrentRoom extends Component {
 
   handleDeleteMessage = messageId => () => {
     wsActions.handleDeletingMessage(messageId);
+    this.handleCancelEditing();
   };
 
   handleEditMessage = (messageId, text) => () => {
@@ -91,6 +91,9 @@ class CurrentRoom extends Component {
         ? (this.inputMessage.value += `\n`)
         : this.handleSubmitMessage(e);
     }
+    if (e.keyCode === 27) {
+      return this.handleCancelEditing();
+    }
   };
 
   render() {
@@ -98,55 +101,48 @@ class CurrentRoom extends Component {
     const { editingMessage } = this.state;
     return (
       <div className="current-room">
-        {/*<h3>{room.roomName}</h3>*/}
         <div className="messages" ref={this.messagesRef}>
-          {!_.isEmpty(room) &&
-            room.messages &&
-            room.messages.length > 0 &&
-            room.messages.map((message, i) => {
-              const currentDate = moment(new Date(message.timeCreate));
-              const prevDate =
-                i > 0
-                  ? moment(new Date(room.messages[i - 1].timeCreate))
-                  : moment(new Date(message.timeCreate));
-              return (
-                <React.Fragment key={message._id}>
-                  {prevDate && moment(currentDate).diff(moment(prevDate), 'days') !== 0 && (
-                    <div className="text-center">
-                      ----- {currentDate.format('DD-MM-YYYY')} -----
-                    </div>
-                  )}
-                  <Message
-                    message={message}
-                    handleEditMessage={this.handleEditMessage}
-                    handleDeleteMessage={this.handleDeleteMessage}
-                    handleClickName={this.handleClickName}
-                  />
-                </React.Fragment>
-              );
-            })}
+          {!_.isEmpty(room) && room.messages && room.messages.length > 0 && (
+            <Messages
+              messages={room.messages}
+              handleEditMessage={this.handleEditMessage}
+              handleDeleteMessage={this.handleDeleteMessage}
+              handleClickName={this.handleClickName}
+            />
+          )}
         </div>
         <form
           className="d-flex justify-content-between position-relative"
           onSubmit={this.handleSubmitMessage}
         >
-          <textarea
-            className="message-text"
-            ref={element => {
-              this.inputMessage = element;
-            }}
-            rows={1}
-            onKeyDown={this.keyDownListener}
-            placeholder="Enter your message"
-          />
-          <div className="btn-group">
-            {!_.isEmpty(editingMessage) && (
-              <button className="send-message" onClick={this.handleCancelEditing}>
-                Cancel
-              </button>
+          <div className="text-input-wrapper">
+            <textarea
+              className={`${!_.isEmpty(editingMessage) && 'editing'} message-text`}
+              ref={element => {
+                this.inputMessage = element;
+              }}
+              rows={1}
+              onKeyDown={this.keyDownListener}
+              placeholder="Enter your message"
+            />
+            {!!editingMessage && (
+              <div className="editing-buttons">
+                <span className="cursor-pointer" title="Cancel" onClick={this.handleCancelEditing}>
+                  <i className="far fa-window-close" />
+                </span>
+                <span
+                  className="cursor-pointer"
+                  title="Delete message"
+                  onClick={this.handleDeleteMessage(editingMessage)}
+                >
+                  <i className="fas fa-trash" />
+                </span>
+              </div>
             )}
+          </div>
+          <div className="send-message-button">
             <button type="submit" className="send-message">
-              Send
+              <i className="fas fa-paper-plane" />
             </button>
           </div>
         </form>
