@@ -5,6 +5,13 @@
   background: $soft-green-light;
   padding: 0.5rem 3rem;
 
+  a {
+    color: white;
+    &:hover {
+      color: $warm-orange-light;
+    }
+  }
+
   h2 {
     color: $warm-orange-dark
   }

@@ -15072,6 +15072,10 @@ textarea.form-control {
   align-items: center;
   background: #5FD4B1;
   padding: 0.5rem 3rem; }
+  .header a {
+    color: white; }
+    .header a:hover {
+      color: #FFC873; }
   .header h2 {
     color: #A66400; }
   .header .link-group, .header .hello {
