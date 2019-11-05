@@ -6,20 +6,27 @@ class Message extends Component {
   render() {
     const {
       user,
-      authors,
-      message: { _id, author, messageBody, timeCreate, isEdited },
+      message: {
+        _id,
+        author: {
+          _id: authorId = '',
+          avatar: { secure_url = '' } = {},
+          login: authorLogin = ''
+        } = {},
+        messageBody = '',
+        timeCreate = '',
+        isEdited
+      },
       theSameAuthor,
       handleEditMessage,
       handleClickName
     } = this.props;
 
-    const messageAuthor = authors.filter(user => user._id === author._id)[0];
-
     const avatarStyle = {
-      backgroundImage: `url(${messageAuthor.avatar ? messageAuthor.avatar.secure_url : ''})`
+      backgroundImage: `url(${secure_url || ''})`
     };
 
-    const isCurrentUser = messageAuthor._id === user._id;
+    const isCurrentUser = authorId === user._id;
 
     return (
       <div
@@ -28,14 +35,10 @@ class Message extends Component {
         } message-wrapper`}
         key={_id}
       >
-        {!theSameAuthor && (
-          <>
-            <div className="avatar" style={avatarStyle} />
-            <span className="nickname" onClick={handleClickName(messageAuthor.login)}>
-              {`${isCurrentUser ? 'You:' : `${messageAuthor.login}:`}`}
-            </span>
-          </>
-        )}
+        <div className="info" onClick={isCurrentUser ? '' : handleClickName(authorLogin)}>
+          <div className="avatar" style={avatarStyle} />
+          <span className="nickname">{`${isCurrentUser ? 'You:' : `${authorLogin}:`}`}</span>
+        </div>
         <div className="message-body">
           {messageBody}
           {isCurrentUser && (

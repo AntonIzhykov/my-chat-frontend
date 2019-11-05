@@ -2,24 +2,60 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: $soft-green-light;
-  padding: 0.5rem 3rem;
+  font-size: $size24;
+  height: $header-height;
 
-  a {
+
+  .chat-name {
+    width: 15%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0;
+    background-color: $navy-blue;
+    font-size: $size20;
     color: white;
-    &:hover {
-      color: $warm-orange-light;
+  }
+
+  .right-part {
+    border-bottom: 1px solid $soft-gray;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 85%;
+    height: 100%;
+
+    .chat-logo {
+      width: 90%;
+      text-align: center;
+    }
+
+    .chat-settings {
+      margin-right: 0;
+      height: 100%;
+      display: flex;
+
+      .button-wrapper {
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        border-right: 1px solid $soft-gray;
+
+        &:last-child {
+          border-right: none;
+        }
+
+        span {
+          cursor: pointer;
+          color: $soft-gray;
+
+          &:hover {
+            color: black;
+          }
+        }
+      }
     }
   }
 
-  h2 {
-    color: $warm-orange-dark
-  }
-
-  .link-group, .hello {
-    width: 15%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
 }

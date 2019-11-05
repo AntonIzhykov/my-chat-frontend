@@ -11,11 +11,19 @@ $warm-orange-light: #FFC873;
 $warm-orange-dark: #A66400;
 $ghost-white: #fafbfd;
 $glitter: #2e2e2e;
+$light-gray: #eceef2;
+$soft-gray: #8f9396;
+$navy-blue: #1d232a;
+$navy-blue-second: #626e7b;
+$navy-blue-gray: #333c44;
+$navy-blue-light: #2d3844;
+$green-light: #33cc33;
+$chat-bg: #e9ebf1;
 
 // Set some defaults colors
-$primary: $soft-green-main;
-$secondary: $warm-orange-main;
-$active: $warm-orange-dark;
+$primary: $soft-gray;
+$secondary: $navy-blue;
+$active: $navy-blue-light;
 $error: #EC0033;
 
 // Add your custom theme colors and use them like ex. btn-custom
@@ -156,7 +164,8 @@ $size290: map-get($spacers, 25); // 290px
 $size324: map-get($spacers, 26); // 324px
 
 // Set font defaults
-$font-family-base: 'Montserrat', 'Open Sans', sans-serif;
+$font-family-base: 'Roboto', 'Open Sans', sans-serif;
+//$font-family-base: 'Montserrat', 'Open Sans', sans-serif;
 $font-family-sans-serif: 'sans-serif';
 
 $font-weight-light: 400;
@@ -209,6 +218,8 @@ $container-xl-max-widths: (
 // Modals
 $modal-md: 680px !default;
 
+// Header
+$header-height: 60px;
 // Use make-container-max-widths Mixin to generate new container's max widths and breakpoints
 /*
   .container-xl {
@@ -218,7 +229,7 @@ $modal-md: 680px !default;
 
 // Set some body defaults
 $body-bg: #fff;
-$body-color: $glitter;
+$body-color: $soft-gray;
 $border-radius-base: 3px;
 
 // Set some links defaults

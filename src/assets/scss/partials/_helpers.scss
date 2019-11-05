@@ -17,10 +17,6 @@ input:focus {
 a {
   text-align: center;
   padding: 0.5rem 0;
-
-  &:hover {
-    background: $soft-green-light;
-  }
 }
 
 #root {
@@ -28,10 +24,16 @@ a {
     height: 100vh;
 
     #content {
-      height: inherit;
+      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+
+      .chat-layout {
+        display: flex;
+        justify-content: space-between;
+        height: 100%;
+      }
     }
 
   }
@@ -56,6 +58,10 @@ a {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.color-white {
+  color: white;
 }
 
 .fz-4 {

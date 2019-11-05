@@ -1,0 +1,36 @@
+.room-list {
+  width: 80%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .room-creator-wrapper {
+    position: relative;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .room-creator{
+      width: 100%;
+      top: 100%;
+      input {
+        padding: 0 0.5rem;
+        width: 80%;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  .list-wrapper {
+    position: relative;
+    overflow-y: auto;
+    max-height: 80%;
+    padding: 0.5rem;
+
+    .list {
+      height: 100%;
+    }
+  }
+}

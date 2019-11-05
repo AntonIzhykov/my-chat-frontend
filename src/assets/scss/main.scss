@@ -12,7 +12,6 @@
 @import './partials/icoMoon';
 
 @import "views/header";
-@import "views/chatLayout";
 @import "views/message";
 @import "views/sidebar";
 @import "views/about";
@@ -20,4 +19,6 @@
 @import "views/report";
 @import 'views/loading';
 @import 'views/myAvatarEditor';
+@import 'views/roomList';
+@import 'views/currentRoom';
 
