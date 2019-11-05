@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as wsActions from '../store/api/webSockets/actions';
+import * as wsActions from '../../store/api/webSockets/actions';
 import _ from 'lodash';
 import autosize from 'autosize';
-import Messages from './Messages';
+import Messages from '../Messages';
+import { Picker } from 'emoji-mart';
+import 'emoji-mart/css/emoji-mart.css';
 
 class CurrentRoom extends Component {
   state = {
-    editingMessage: ''
+    editingMessage: '',
+    showEmojiPanel: false
   };
 
   messagesRef = React.createRef();
@@ -60,6 +63,11 @@ class CurrentRoom extends Component {
       autosize(this.inputMessage);
       return;
     }
+    // if (!_.isEmpty(this.inputMessage.value.trim())) {
+    //   for (let i = 2000; i > 0; i--) {
+    //     wsActions.handleSendingMessage(this.inputMessage.value);
+    //   }
+    // }
     !_.isEmpty(this.inputMessage.value.trim()) &&
       wsActions.handleSendingMessage(this.inputMessage.value);
     clean();
@@ -96,9 +104,33 @@ class CurrentRoom extends Component {
     }
   };
 
+  showEmojiPanel = () => {
+    this.setState(
+      {
+        showEmojiPanel: true
+      },
+      () => document.addEventListener('click', this.closeEmojiPanel)
+    );
+  };
+
+  closeEmojiPanel = e => {
+    if (this.emojiPicker !== null && !this.emojiPicker.contains(e.target)) {
+      this.setState(
+        {
+          showEmojiPanel: false
+        },
+        () => document.removeEventListener('click', this.closeEmojiPanel)
+      );
+    }
+  };
+
+  addEmoji = e => {
+    this.inputMessage.value = this.inputMessage.value + e.native;
+  };
+
   render() {
     const { room } = this.props;
-    const { editingMessage } = this.state;
+    const { editingMessage, showEmojiPanel } = this.state;
     return (
       <div className="current-room">
         <div className="messages" ref={this.messagesRef}>
@@ -111,37 +143,57 @@ class CurrentRoom extends Component {
             />
           )}
         </div>
-        <form
-          className="d-flex justify-content-between position-relative"
-          onSubmit={this.handleSubmitMessage}
-        >
-          <div className="text-input-wrapper">
-            <textarea
-              className={`${!_.isEmpty(editingMessage) && 'editing'} message-text`}
-              ref={element => {
-                this.inputMessage = element;
-              }}
-              rows={1}
-              onKeyDown={this.keyDownListener}
-              placeholder="Enter your message"
-            />
-            {!!editingMessage && (
-              <div className="editing-buttons">
-                <span className="cursor-pointer" title="Cancel" onClick={this.handleCancelEditing}>
-                  <i className="far fa-window-close" />
-                </span>
+        <form onSubmit={this.handleSubmitMessage}>
+          <textarea
+            className={`${!_.isEmpty(editingMessage) ? 'editing' : ''} message-text`}
+            ref={element => {
+              this.inputMessage = element;
+            }}
+            rows={1}
+            onKeyDown={this.keyDownListener}
+            placeholder="Type your message"
+          />
+          {!!editingMessage && (
+            <div className="editing-buttons">
+              <span className="cursor-pointer" title="Cancel" onClick={this.handleCancelEditing}>
+                <i className="far fa-window-close" />
+              </span>
+              <span
+                className="cursor-pointer"
+                title="Delete message"
+                onClick={this.handleDeleteMessage(editingMessage)}
+              >
+                <i className="fas fa-trash" />
+              </span>
+            </div>
+          )}
+
+          <div className="right-part">
+            <div className="emoji" onClick={this.showEmojiPanel}>
+              <span className="cursor-pointer fz-20 m-0" onClick={this.showEmojiPanel}>
+                {String.fromCodePoint(0x1f60a)}
+              </span>
+              {showEmojiPanel && (
                 <span
-                  className="cursor-pointer"
-                  title="Delete message"
-                  onClick={this.handleDeleteMessage(editingMessage)}
+                  style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    right: 0
+                  }}
+                  ref={el => (this.emojiPicker = el)}
                 >
-                  <i className="fas fa-trash" />
+                  <Picker
+                    onSelect={this.addEmoji}
+                    emojiTooltip={true}
+                    title="WS-Chat"
+                    emojiSize={24}
+                  />
                 </span>
-              </div>
-            )}
-          </div>
-          <div className="send-message-button">
-            <button type="submit" className="send-message icon-reply fz-32" />
+              )}
+            </div>
+            <div className="send-message" onClick={this.handleSubmitMessage}>
+              <span className="icon-send color-white absolute-center" />
+            </div>
           </div>
         </form>
       </div>
