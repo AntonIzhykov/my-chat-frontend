@@ -115,7 +115,7 @@ class Profile extends Component {
               <input
                 type="text"
                 name="login"
-                value={login}
+                defaultValue={login}
                 placeholder="login"
                 onChange={this.handleChange}
               />
@@ -125,7 +125,7 @@ class Profile extends Component {
               <input
                 type="text"
                 name="email"
-                value={email}
+                defaultValue={email}
                 placeholder="email"
                 onChange={this.handleChange}
               />

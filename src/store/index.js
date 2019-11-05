@@ -1,16 +1,18 @@
 import { createBrowserHistory } from 'history';
-import { applyMiddleware, compose, createStore } from 'redux';
-
 import { routerMiddleware } from 'connected-react-router';
+import Notifications from './middlewares/Notifications';
 import createRootReducer from './reducers';
 import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const redux_devtools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 export const history = createBrowserHistory();
-
-const configureStore = () => compose(applyMiddleware(
-  routerMiddleware(history),
-  thunk
-))(createStore)(createRootReducer(history), redux_devtools);
+const configureStore = () =>
+  createStore(
+    createRootReducer(history),
+    process.env.NODE_ENV === 'development'
+      ? composeWithDevTools(applyMiddleware(Notifications, thunk, routerMiddleware(history)))
+      : applyMiddleware(Notifications, thunk, routerMiddleware(history))
+  );
 
 export const store = configureStore();

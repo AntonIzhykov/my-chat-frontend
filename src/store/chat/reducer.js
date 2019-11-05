@@ -97,26 +97,54 @@ export const chat = (state = initialState, action) => {
       };
 
     case con.USER_JOINED_ROOM:
+      const {
+        roomId,
+        user: { _id: userId }
+      } = action.payload;
       return {
         ...state,
-        currentRoom: {
-          ...state.currentRoom,
-          users: state.currentRoom.users.includes(action.payload)
-            ? state.currentRoom.users
-            : [...state.currentRoom.users, action.payload]
-        }
+        chatRooms: state.chatRooms.map(room =>
+          room._id === roomId &&
+          (!room.users.length || !room.users.filter(user => user._id === userId).length)
+            ? {
+                ...room,
+                users: [...room.users, action.payload.user]
+              }
+            : room
+        ),
+        currentRoom:
+          state.currentRoom._id === action.payload.roomId && state.currentUser._id !== userId
+            ? {
+                ...state.currentRoom,
+                users: [...state.currentRoom.users, action.payload.user]
+              }
+            : state.currentRoom
       };
 
     case con.USER_LEFT_ROOM:
       return {
         ...state,
-        currentRoom: {
-          ...state.currentRoom,
-          users: state.currentRoom.users.filter(user => user._id !== action.payload)
-        },
+        chatRooms: state.chatRooms.map(room =>
+          room._id === action.payload.roomId
+            ? {
+                ...room,
+                users: room.users.filter(user => user._id !== action.payload.userId)
+              }
+            : room
+        ),
+        currentRoom:
+          action.payload.userId === state.currentUser._id
+            ? state.currentRoom
+            : {
+                ...state.currentRoom,
+                users: state.currentRoom.users
+                  ? state.currentRoom.users.filter(user => user._id !== action.payload.userId)
+                  : []
+              },
         currentUser: {
           ...state.currentUser,
-          currentRoom: state.currentUser._id === action.payload ? '' : state.currentUser.currentRoom
+          currentRoom:
+            state.currentUser._id === action.payload.userId ? '' : state.currentUser.currentRoom
         }
       };
 

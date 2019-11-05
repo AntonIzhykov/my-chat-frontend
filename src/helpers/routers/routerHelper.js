@@ -5,7 +5,7 @@ import About from '../../components/About';
 import Profile from '../../components/Profile';
 import PrivateRoute from '../../components/PrivatRoute';
 import RoomList from '../../components/RoomList';
-import CurrentRoom from '../../containers/CurrentRoom';
+import CurrentRoom from '../../containers/CurrentRoom/CurrentRoom';
 
 export const AppRouter = props => {
   return (

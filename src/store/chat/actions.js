@@ -20,9 +20,9 @@ export const pushNewMessage = message => ({
   payload: message
 });
 
-export const userJoinedRoom = user => ({
+export const userJoinedRoom = data => ({
   type: con.USER_JOINED_ROOM,
-  payload: user
+  payload: data
 });
 
 export const userLeftRoom = user => ({

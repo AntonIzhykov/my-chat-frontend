@@ -43,10 +43,7 @@ export const connect = () => {
       store.dispatch(actions.messageDeleted(serverMessage.messageDeleted));
     }
     if (serverMessage.userJoinedRoom) {
-      !store
-        .getState()
-        .chat.currentRoom.users.filter(user => user._id === serverMessage.userJoinedRoom._id)
-        .length && store.dispatch(actions.userJoinedRoom(serverMessage.userJoinedRoom));
+      store.dispatch(actions.userJoinedRoom(serverMessage.userJoinedRoom));
     }
     if (serverMessage.userLeftRoom) {
       store.dispatch(actions.userLeftRoom(serverMessage.userLeftRoom));

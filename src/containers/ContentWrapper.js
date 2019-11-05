@@ -3,9 +3,13 @@ import App from '../components/App';
 import Loader from '../components/Loader';
 import { connect } from 'react-redux';
 import { handleCheckCurrentUser } from '../store/auth';
+import { handleGettingRooms } from '../store/chat';
+import Notifications from '../components/Notifications';
+
 class ContentWrapper extends Component {
   componentDidMount() {
     this.props.handleCheckCurrentUser();
+    this.props.handleGettingRooms();
   }
 
   render() {
@@ -17,6 +21,7 @@ class ContentWrapper extends Component {
       <div className="content-wrapper">
         {_id && !isOnline && <Loader />}
         <App />
+        <Notifications />
       </div>
     );
   }
@@ -27,7 +32,8 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = {
-  handleCheckCurrentUser
+  handleCheckCurrentUser,
+  handleGettingRooms
 };
 
 export default connect(
