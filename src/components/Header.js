@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import * as wsActions from '../store/api/webSockets/actions';
 import TokenStorage from '../store/api/token';
-import { history } from '../store';
 import { handleAuthentication } from '../store/auth';
+import Tippy from '@tippy.js/react';
+import { ModalWindow, Authentication, RoomSettings } from './ModalWindows';
 
 class Header extends Component {
-  handleSubmit = e => {
-    if (e) e.preventDefault();
-    const name = this.inputLogin.value;
-    const pass = this.inputPassword.value;
-    if (name && pass) {
-      this.props.handleAuthentication(name, pass);
-    }
+  state = {
+    showAuthModal: false,
+    showRoomSettingsModal: false
   };
 
   handleLogout = () => {
@@ -22,62 +18,74 @@ class Header extends Component {
     TokenStorage.removeItemInLocalStorage();
   };
 
+  toggleAuthModal = () => {
+    this.setState({
+      showAuthModal: !this.state.showAuthModal
+    });
+  };
+
+  toggleRoomSettingsModal = () => {
+    this.setState({
+      showRoomSettingsModal: !this.state.showRoomSettingsModal
+    });
+  };
+
   render() {
     const {
-      chat: { currentUser: user, currentRoom },
-      auth: { error, isOnline }
+      chat: {
+        currentUser: { _id: userId },
+        currentRoom,
+        currentRoom: { roomCreator }
+      },
+      auth: { error = '' },
+      handleAuthentication
     } = this.props;
+    let errorMsg = error;
     const { pathname } = this.props.location;
-    const h2 =
-      pathname === '/'
-        ? 'Welcome!'
-        : pathname === '/chat'
-        ? 'Room list'
-        : pathname === '/profile'
-        ? ' Profile settings'
-        : currentRoom
-        ? `#${currentRoom.roomName}`
-        : '';
+    const { showAuthModal, showRoomSettingsModal } = this.state;
     return (
       <div className="header">
-        <div className="link-group">
-          {pathname === '/' ? (
-            <span className="mr-2" />
-          ) : (
-            <span className="icon-undo2 fz-16 cursor-pointer" onClick={() => history.goBack()} />
-          )}
-          <NavLink to="/">
-            <span className="icon-home fz-20"> Main</span>
-          </NavLink>
-          {isOnline && (
-            <NavLink to="/chat">
-              <span className="icon-bubbles4 fz-24"> Chat</span>
-            </NavLink>
-          )}
-        </div>
-        <div>
-          <h2 className={`${pathname === '/profile' && 'icon-cogs'}`}>{h2}</h2>
-        </div>
-        {!_.isEmpty(user) ? (
-          <div className="hello fz-24">
-            <NavLink to="/profile">
-              <span className="icon-user-tie fz-24"> {user.login}</span>
-            </NavLink>
-            <span
-              onClick={this.handleLogout}
-              className="icon-enter btn bg-reverse fz-24 cursor-pointer"
+        {showAuthModal && (
+          <ModalWindow title="Sign in" error={errorMsg} onClose={this.toggleAuthModal}>
+            <Authentication
+              handleAuthentication={handleAuthentication}
+              closeModal={this.toggleAuthModal}
             />
-          </div>
-        ) : (
-          <form onSubmit={this.handleSubmit}>
-            <span className="form-error mr-2">{error}</span>
-            <input type="text" ref={element => (this.inputLogin = element)} />
-            <input type="password" ref={element => (this.inputPassword = element)} />
-            <button className="btn" onClick={this.handleSubmit}>
-              Login
-            </button>
-          </form>
+          </ModalWindow>
         )}
+        {showRoomSettingsModal && (
+          <ModalWindow title="Room settings" onClose={this.toggleRoomSettingsModal}>
+            <RoomSettings
+              room={currentRoom}
+              userId={userId}
+              closeModal={this.toggleRoomSettingsModal}
+            />
+          </ModalWindow>
+        )}
+        <div className="chat-name">
+          <Link to="/">WS chat</Link>
+        </div>
+        <div className="right-part">
+          <div className="chat-logo">Logo</div>
+          <div className="chat-settings">
+            {currentRoom && pathname.includes(currentRoom._id) && roomCreator === userId && (
+              <div className="button-wrapper">
+                <Tippy content="Room settings" theme="default">
+                  <span onClick={this.toggleRoomSettingsModal} className="icon-cog" />
+                </Tippy>
+              </div>
+            )}
+            <div className="button-wrapper">
+              {!!userId ? (
+                <Tippy content="Leave chat" theme="default">
+                  <span onClick={this.handleLogout} className="icon-enter" />
+                </Tippy>
+              ) : (
+                <span className="icon-user-plus" onClick={this.toggleAuthModal} />
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

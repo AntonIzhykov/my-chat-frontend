@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
+import * as ReactDOM from 'react-dom';
 
-class Loader extends Component {
-  render() {
-    return (
-      <div className='loader-layout'>
-        <div className='loader-wrapper'>
-          <div className="loader"/>
-        </div>
+const Loader = () => {
+  const modalRoot = document.getElementById('modal-root');
+  return ReactDOM.createPortal(
+    <div className="loader-layout">
+      <div className="loader-wrapper">
+        <div className="loader" />
       </div>
-    );
-  }
-}
+    </div>,
+    modalRoot
+  );
+};
 
 export default Loader;

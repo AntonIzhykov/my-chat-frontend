@@ -5,7 +5,7 @@ import _ from 'lodash';
 import autosize from 'autosize';
 import Messages from '../Messages';
 import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
+import Tippy from '@tippy.js/react';
 
 class CurrentRoom extends Component {
   state = {
@@ -63,11 +63,15 @@ class CurrentRoom extends Component {
       autosize(this.inputMessage);
       return;
     }
+
+    //TODO
+    // for fast deploy many messages
     // if (!_.isEmpty(this.inputMessage.value.trim())) {
     //   for (let i = 2000; i > 0; i--) {
     //     wsActions.handleSendingMessage(this.inputMessage.value);
     //   }
     // }
+
     !_.isEmpty(this.inputMessage.value.trim()) &&
       wsActions.handleSendingMessage(this.inputMessage.value);
     clean();
@@ -91,6 +95,12 @@ class CurrentRoom extends Component {
     this.inputMessage.value = text;
     this.inputMessage.focus();
     autosize(this.inputMessage);
+  };
+
+  handleQuoteMessage = text => () => {
+    this.inputMessage.value = `"${text}"`;
+    this.inputMessage.focus();
+    this.inputMessage.value += ' ';
   };
 
   keyDownListener = e => {
@@ -137,9 +147,11 @@ class CurrentRoom extends Component {
           {!_.isEmpty(room) && room.messages && room.messages.length > 0 && (
             <Messages
               messages={room.messages}
+              roomId={room._id}
               handleEditMessage={this.handleEditMessage}
               handleDeleteMessage={this.handleDeleteMessage}
               handleClickName={this.handleClickName}
+              handleQuoteMessage={this.handleQuoteMessage}
             />
           )}
         </div>
@@ -155,19 +167,13 @@ class CurrentRoom extends Component {
           />
           {!!editingMessage && (
             <div className="editing-buttons">
-              <span className="cursor-pointer" title="Cancel" onClick={this.handleCancelEditing}>
-                <i className="far fa-window-close" />
-              </span>
-              <span
-                className="cursor-pointer"
-                title="Delete message"
-                onClick={this.handleDeleteMessage(editingMessage)}
-              >
-                <i className="fas fa-trash" />
-              </span>
+              <Tippy content="Cancel editing">
+                <span className="cursor-pointer" onClick={this.handleCancelEditing}>
+                  <i className="far fa-window-close" />
+                </span>
+              </Tippy>
             </div>
           )}
-
           <div className="right-part">
             <div className="emoji" onClick={this.showEmojiPanel}>
               <span className="cursor-pointer fz-20 m-0" onClick={this.showEmojiPanel}>

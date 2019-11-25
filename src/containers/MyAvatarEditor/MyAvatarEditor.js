@@ -4,17 +4,18 @@ import ReactAvatarEditor from 'react-avatar-editor';
 import Dropzone from 'react-dropzone';
 import { saveNewAvatar, handleLoadingTempImage } from '../../store/chat';
 import { getBase64FromFile, getBase64FromUrl } from '../../helpers';
+import Tippy from '@tippy.js/react';
+import { EditorZone } from './EditorZone';
 
 class MyAvatarEditor extends React.Component {
   state = {
     image: '',
     scale: 1,
     rotate: 0,
-    borderRadius: 0,
+    borderRadius: 100,
     width: 200,
     height: 200,
-    newAvatar: null,
-    isEditing: false
+    newAvatar: null
   };
 
   componentDidMount() {
@@ -27,7 +28,7 @@ class MyAvatarEditor extends React.Component {
       this.setImageInBase64(this.props.image);
       this.setState({
         rotate: 0,
-        borderRadius: 0,
+        borderRadius: 100,
         scale: 1,
         width: 200,
         height: 200
@@ -84,9 +85,7 @@ class MyAvatarEditor extends React.Component {
 
   handleSaveImage = () => {
     this.createNewAvatar();
-    this.setState({
-      isEditing: false
-    });
+    this.props.closeEditorZone();
   };
 
   handleScale = e => {
@@ -101,124 +100,78 @@ class MyAvatarEditor extends React.Component {
     });
   };
 
-  handleBorderRadius = e => {
-    const borderRadius = parseInt(e.target.value);
-    this.setState({ borderRadius });
-  };
-
   render() {
-    const {
-      scale,
-      rotate,
-      width,
-      height,
-      borderRadius,
-      image,
-      tempImage = '',
-      isEditing
-    } = this.state;
+    const { scale, rotate, width, height, borderRadius, image, tempImage = '' } = this.state;
+
+    const { closeEditorZone, openEditorZone, showEditorZone } = this.props;
 
     return (
       <div className="avatar-zone">
-        <div className="drop-zone">
-          <Dropzone
-            onDrop={acceptedFiles => this.setImageInBase64(acceptedFiles[0])}
-            disableClick
-            multiple={false}
-          >
-            {({ getRootProps }) => {
-              return (
-                <div {...getRootProps()}>
-                  <ReactAvatarEditor
-                    ref={ref => (this.ref = ref)}
-                    scale={parseFloat(scale)}
-                    width={this.props.width || width}
-                    height={this.props.height || height}
-                    rotate={parseFloat(rotate)}
-                    borderRadius={width / (100 / borderRadius)}
-                    image={image}
-                    className="editor-canvas"
-                  />
-                </div>
-              );
-            }}
-          </Dropzone>
-          <input
-            id="file-avatar"
-            type="file"
-            className="d-none"
-            onChange={e => this.setImageInBase64(e.target.files[0])}
-          />
-          <label htmlFor="file-avatar">
-            <div className="icon-download2 fz-24" />
-            <div>
-              choose your <span className="font-weight-bold">file</span>
-            </div>
-            <div>
-              or drop it <span className="font-weight-bold">here</span>
-            </div>
-          </label>
-          {isEditing && (
-            <div className="editor fz-20">
-              <div className="d-flex align-items-center">
-                <span className="icon-link fz-20" />
-                <input
-                  type="text"
-                  className="ml-1 p-1 icon-link"
-                  value={tempImage}
-                  placeholder="Put url here..."
-                  onChange={this.handleChangeTempImage}
-                />
-                {!!tempImage && (
-                  <span
-                    onClick={this.handleLoadTempImage}
-                    className="icon-download2 btn fz-16 cursor-pointer"
-                  />
-                )}
+        <Tippy
+          content={
+            <EditorZone
+              handleChangeTempImage={this.handleChangeTempImage}
+              handleLoadTempImage={this.handleLoadTempImage}
+              handleRotate={this.handleRotate}
+              handleScale={this.handleScale}
+              tempImage={tempImage}
+            />
+          }
+          visible={showEditorZone}
+          onHidden={closeEditorZone}
+          placement="right-start"
+          theme="avatar-editor"
+          interactive={true}
+          distance={15}
+          inertia={true}
+          appendTo={document.body}
+        >
+          <div className="drop-zone">
+            <Dropzone
+              onDrop={acceptedFiles => this.setImageInBase64(acceptedFiles[0])}
+              disableClick
+              multiple={false}
+            >
+              {({ getRootProps }) => {
+                return (
+                  <div {...getRootProps()}>
+                    <ReactAvatarEditor
+                      ref={ref => (this.ref = ref)}
+                      scale={parseFloat(scale)}
+                      width={this.props.width || width}
+                      height={this.props.height || height}
+                      rotate={parseFloat(rotate)}
+                      borderRadius={width / (100 / borderRadius)}
+                      image={image}
+                      className="editor-canvas"
+                    />
+                  </div>
+                );
+              }}
+            </Dropzone>
+            <input
+              id="file-avatar"
+              type="file"
+              className="d-none"
+              onChange={e => this.setImageInBase64(e.target.files[0])}
+            />
+            <label htmlFor="file-avatar">
+              <div className="icon-download2 fz-24" />
+              <div>
+                choose your <span className="font-weight-bold">file</span>
               </div>
-              Zoom:
-              <input
-                name="scale"
-                type="range"
-                onChange={this.handleScale}
-                min={'0.1'}
-                max="4"
-                step="0.01"
-                defaultValue="1"
-              />
-              Border radius:
-              <input
-                name="scale"
-                type="range"
-                onChange={this.handleBorderRadius}
-                min="0"
-                max="100"
-                step="1"
-                defaultValue="0"
-              />
-              <br />
-              <div className="d-flex flex-column justify-content-center align-items-center">
-                <div>Rotate:</div>
-                <div className="d-flex">
-                  <button className="m-1 btn icon-undo" onClick={this.handleRotate(true)} />
-                  <button className="icon-redo btn" onClick={this.handleRotate(false)} />
-                </div>
+              <div>
+                or drop it <span className="font-weight-bold">here</span>
               </div>
-              <br />
-            </div>
-          )}
-        </div>
-        {isEditing ? (
+            </label>
+          </div>
+        </Tippy>
+        {showEditorZone ? (
           <button className="btn bg-primary mt-2" onClick={this.handleSaveImage}>
             <span className="icon-reply fz-24">Save image</span>
           </button>
         ) : (
-          <button
-            className="btn mt-2"
-            onClick={() => {
-              this.setState({ isEditing: true });
-            }}
-          >
+          <button className="btn mt-2" onClick={openEditorZone}>
             <span className="icon-equalizer fz-24"> Edit image</span>
           </button>
         )}

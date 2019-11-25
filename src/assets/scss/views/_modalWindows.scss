@@ -1,0 +1,151 @@
+.modal-wrapper {
+  width: 100%;
+
+  height: 100vh;
+  background: rgba(143, 147, 150, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .modal-window-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    max-width: 70%;
+    min-width: 300px;
+    height: auto;
+    background: $chat-bg;
+    border-radius: 10px;
+    box-shadow: 3px 3px 7px $navy-blue-gray;
+    padding: 1rem 1rem 2rem;
+    margin: auto 1rem;
+
+    .modal-window {
+      width: 100%;
+      height: 100%;
+      position: relative;
+
+      .form-error {
+        width: 100%;
+        position: absolute;
+        text-align: center;
+      }
+
+      .auth-form {
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: $primary;
+        padding: 0.5rem;
+        text-align: center;
+
+        input {
+          color: $secondary;
+          padding: 0.5rem;
+        }
+      }
+
+      .room-creator {
+        display: flex;
+        width: 100%;
+        min-width: 200px;
+        align-items: center;
+
+        input {
+          padding: 0.5rem;
+          max-height: 35px;
+        }
+      }
+
+      .user-settings {
+        height: 100%;
+        margin: auto;
+        text-align: center;
+
+        .btn {
+          color: $active;
+        }
+
+        .avatar-zone {
+          height: auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-right: 1rem;
+          padding: 0.5rem;
+
+          .btn {
+            background-color: $primary;
+          }
+        }
+
+        .input-group {
+          display: flex;
+          flex-direction: column;
+          position: relative;
+          padding: 0.5rem;
+
+          .control-buttons-group {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+          }
+
+          input {
+            border: 1px solid transparent;
+            padding: 0.5rem;
+
+            &:Focus {
+              border: 1px dashed $green-light;
+            }
+          }
+        }
+
+        .editor {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          right: 100%;
+          top: 0;
+          margin-right: 2rem;
+          width: 100%;
+
+          input {
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0.5rem;
+          }
+        }
+      }
+
+      .room-settings {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .change-name {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          input {
+            padding: 0.5rem;
+          }
+        }
+        .btn-danger {
+          background-color: $error
+        }
+      }
+    }
+  }
+}

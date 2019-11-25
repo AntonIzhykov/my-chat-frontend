@@ -1,0 +1,45 @@
+.tippy-tooltip.default-theme {
+  background-color: $active;
+  color: $primary;
+
+  &:hover {
+    color: white;
+  }
+}
+.tippy-tooltip.authentication-theme {
+  background-color: $primary;
+  color: white;
+
+  .tippy-arrow {
+      border-left-color: $primary !important;
+    }
+}
+
+.tippy-tooltip.avatar-editor-theme {
+  background-color: $secondary;
+  max-width: 250px !important;
+
+  .tippy-arrow {
+    border-left-color: $secondary !important;
+  }
+
+  .editor {
+    display: flex;
+    flex-direction: column;
+    right: 100%;
+    top: 0;
+    margin-right: 2rem;
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+    text-align: center;
+
+    input {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0.5rem;
+    }
+  }
+}
+

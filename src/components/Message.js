@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import Tippy from '@tippy.js/react';
 
 class Message extends Component {
   render() {
@@ -19,6 +20,8 @@ class Message extends Component {
       },
       theSameAuthor,
       handleEditMessage,
+      handleDeleteMessage,
+      handleQuoteMessage,
       handleClickName
     } = this.props;
 
@@ -35,20 +38,41 @@ class Message extends Component {
         } message-wrapper`}
         key={_id}
       >
-        <div className="info" onClick={isCurrentUser ? '' : handleClickName(authorLogin)}>
+        <div className="info" onClick={isCurrentUser ? () => {} : handleClickName(authorLogin)}>
           <div className="avatar" style={avatarStyle} />
           <span className="nickname">{`${isCurrentUser ? 'You:' : `${authorLogin}:`}`}</span>
         </div>
-        <div className="message-body">
-          {messageBody}
-          {isCurrentUser && (
-            <span
-              className="msg-edit icon-pencil2"
-              title="Edit message"
-              onClick={handleEditMessage(_id, messageBody)}
-            />
-          )}
-        </div>
+        <Tippy
+          content={
+            <>
+              {isCurrentUser && (
+                <span
+                  className="fz-12 icon-bin cursor-pointer mr-2"
+                  onClick={handleDeleteMessage(_id)}
+                />
+              )}
+              {isCurrentUser && (
+                <span
+                  className="fz-12 icon-pencil2 cursor-pointer mr-2"
+                  onClick={handleEditMessage(_id, messageBody)}
+                />
+              )}
+              <span
+                className="fz-12 icon-quotes-right cursor-pointer"
+                onClick={handleQuoteMessage(messageBody)}
+              />
+            </>
+          }
+          placement="right-start"
+          arrow={false}
+          theme="default"
+          interactive={true}
+          distance={7}
+          inertia={true}
+          appendTo={document.body}
+        >
+          <div className="message-body">{messageBody}</div>
+        </Tippy>
         <div className="time-wrapper">
           {isEdited && <span className="editing-time icon-pencil">edited</span>}
           <span className="time">{moment(timeCreate).format('HH:mm')}</span>

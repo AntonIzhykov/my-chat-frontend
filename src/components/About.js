@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { handleGettingReport } from '../store/auth';
 import Report from './Report';
 import Loader from './Loader';
@@ -40,9 +41,14 @@ class About extends Component {
           try to use new futures such as unit testing and webSockets.
         </p>
         {isOnline && _id && (
-          <button className="btn" onClick={this.handleGetInfo}>
-            Get report
-          </button>
+          <>
+            <Link to="/chat" className="btn">
+              Go chat!
+            </Link>
+            <button className="btn" onClick={this.handleGetInfo}>
+              Get report
+            </button>
+          </>
         )}
       </div>
     );

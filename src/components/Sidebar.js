@@ -4,15 +4,21 @@ import _ from 'lodash';
 import { withRouter } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { history } from '../store';
-import { handleCreatingRoom, handleDeletingRoom } from '../store/api/webSockets/actions';
+import { handleGettingRooms } from '../store/chat';
+import { ModalWindow, RoomCreator, UserSettings } from './ModalWindows';
 
 class Sidebar extends Component {
   state = {
     chatRooms: [],
-    createRoomFieldOpen: false
+    showRoomCreatorModal: false,
+    showUserSettingsModal: false,
+    showRoomSettingsModal: false
   };
 
   componentDidMount() {
+    if (!this.props.chat.chatRooms.length) {
+      this.props.handleGettingRooms();
+    }
     this.setState({
       chatRooms: this.props.chat.chatRooms
     });
@@ -25,29 +31,22 @@ class Sidebar extends Component {
       });
   }
 
-  handleOpenCreateRoomField = () => {
+  toggleShowRoomCreator = () => {
     this.setState({
-      createRoomFieldOpen: !this.state.createRoomFieldOpen
+      showRoomCreatorModal: !this.state.showRoomCreatorModal
     });
   };
 
-  handleCreateRoom = () => {
-    !_.isEmpty(this.inputRoomName.value.trim()) && handleCreatingRoom(this.inputRoomName.value);
-    this.inputRoomName.value = '';
+  toggleShowUserSettings = () => {
     this.setState({
-      createRoomFieldOpen: false
+      showUserSettingsModal: !this.state.showUserSettingsModal
     });
   };
 
-  handleDeleteRoom = (roomId, userId) => e => {
-    e.preventDefault();
-    handleDeletingRoom(roomId, userId);
-  };
-
-  handleCheckEnter = e => {
-    if (e.key === 'Enter') {
-      this.handleCreateRoom();
-    }
+  toggleShowRoomSettings = () => {
+    this.setState({
+      showRoomSettingsModal: !this.state.showRoomSettingsModal
+    });
   };
 
   render() {
@@ -59,52 +58,45 @@ class Sidebar extends Component {
     const cRoom = currentRoom ? currentRoom : {};
     const { _id: currentRoomId = '', users = [] } = cRoom;
     const { _id: lastRoomId = '', roomName = '' } = lastRoom;
-    const { createRoomFieldOpen, chatRooms } = this.state;
+    const { showRoomCreatorModal, showUserSettingsModal, chatRooms } = this.state;
     return (
       <div id="sidebar" className="sidebar">
+        {showRoomCreatorModal && (
+          <ModalWindow title={'Create new room'} onClose={this.toggleShowRoomCreator}>
+            <RoomCreator onClose={this.toggleShowRoomCreator} />
+          </ModalWindow>
+        )}
+        {showUserSettingsModal && (
+          <ModalWindow title={'User Settings'} onClose={this.toggleShowUserSettings}>
+            <UserSettings onClose={this.toggleShowUserSettings} />
+          </ModalWindow>
+        )}
+
         {!_.isEmpty(currentUser) && lastRoomId && !pathname.includes(lastRoomId) && (
           <div className="last-room">
             <h5>Your last room:</h5>
             <NavLink onClick={() => history.push(`/chat/${lastRoomId}`)} to={`/chat/${lastRoomId}`}>
-              {roomName}
+              <span>{roomName}</span>
             </NavLink>
           </div>
         )}
-
         {chatRooms && chatRooms.length > 0 && (
           <div className="rooms">
             <div className="d-flex align-items-center">
               <h5>Rooms:</h5>
               <span
                 className={`${
-                  createRoomFieldOpen ? 'icon-cross color-white' : 'icon-plus'
+                  showRoomCreatorModal ? 'icon-cross color-white' : 'icon-plus'
                 } btn p-1 m-0 ml-1 cursor-pointer`}
-                onClick={this.handleOpenCreateRoomField}
+                onClick={this.toggleShowRoomCreator}
               />
-              {createRoomFieldOpen && (
-                <div className="room-creator ml-2">
-                  <input
-                    onKeyDown={this.handleCheckEnter}
-                    type="text"
-                    ref={element => {
-                      this.inputRoomName = element;
-                    }}
-                  />
-                  <span
-                    className="cursor-pointer text-uppercase color-white ml-1"
-                    onClick={this.handleCreateRoom}
-                  >
-                    add
-                  </span>
-                </div>
-              )}
             </div>
             <div className="list-wrapper">
               <div className="list ">
                 {chatRooms.map(room => {
                   return (
                     <NavLink key={room._id} to={`/chat/${room._id}`}>
-                      {room.roomName}
+                      <span className="overflow-hidden">{room.roomName}</span>
                       <span>{room.users.length}</span>
                     </NavLink>
                   );
@@ -131,7 +123,7 @@ class Sidebar extends Component {
           </div>
         )}
 
-        <div className="user-settings" onClick={() => history.push('/profile')}>
+        <div className="user-settings" onClick={this.toggleShowUserSettings}>
           <span>User settings</span>
           <span className="icon-cogs" />
         </div>
@@ -144,4 +136,13 @@ const mapStateToProps = store => ({
   chat: store.chat
 });
 
-export default withRouter(connect(mapStateToProps)(Sidebar));
+const mapDispatchToProps = {
+  handleGettingRooms
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Sidebar)
+);
