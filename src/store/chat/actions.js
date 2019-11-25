@@ -30,6 +30,11 @@ export const userLeftRoom = user => ({
   payload: user
 });
 
+export const roomEdited = room => ({
+  type: con.ROOM_EDITED,
+  payload: room
+});
+
 export const roomDeleted = roomId => ({
   type: con.ROOM_DELETED,
   payload: roomId

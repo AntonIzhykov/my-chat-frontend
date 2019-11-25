@@ -10,6 +10,8 @@ export const USER_JOINED_ROOM = 'chat/USER_JOINED_ROOM';
 export const USER_LEFT_ROOM = 'chat/USER_LEFT_ROOM';
 
 export const ROOM_DELETED = 'chat/ROOM_DELETED';
+export const ROOM_EDITED = 'chat/ROOM_EDITED';
+
 export const MESSAGE_DELETED = 'chat/MESSAGE_DELETED';
 export const MESSAGE_EDITED = 'chat/MESSAGE_EDITED';
 

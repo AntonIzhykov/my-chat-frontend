@@ -4,12 +4,17 @@
   "author": "Anton Izhykov a.k.a. LanzzLophophora",
   "private": true,
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.3",
+    "@tippy.js/react": "^3.1.1",
+    "apollo-boost": "^0.4.4",
     "autosize": "^4.0.2",
     "axios": "^0.19.0",
     "axios-mock-adapter": "^1.17.0",
     "bootstrap": "^4.3.1",
     "connected-react-router": "^6.5.2",
+    "emoji-mart": "^2.11.1",
     "fetch-mock": "^7.3.9",
+    "graphql": "^14.5.8",
     "history": "^4.9.0",
     "image-data-uri": "^2.0.1",
     "lodash": "^4.17.15",
@@ -18,9 +23,12 @@
     "node-sass-chokidar": "^1.3.5",
     "npm-run-all": "^4.1.5",
     "react": "^16.8.6",
+    "react-apollo": "^3.1.3",
     "react-avatar-editor": "^11.0.7",
     "react-dom": "^16.8.6",
     "react-dropzone": "^10.1.10",
+    "react-notification-system": "^0.2.17",
+    "react-notification-system-redux": "^2.0.0",
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
@@ -33,7 +41,8 @@
   },
   "scripts": {
     "start-js": "react-scripts start",
-    "start": "NODE_PATH=./src && PORT=3000 && npm-run-all -p watch-css start-js",
+    "start": "NODE_ENV=production && NODE_PATH=./src && PORT=3000 && npm-run-all -p watch-css start-js",
+    "dev": "NODE_PATH=./src && PORT=3000 && npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
     "build-css": "node-sass-chokidar src/assets/scss -o src/assets/css",
@@ -62,6 +71,7 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "redux-devtools-extension": "^2.13.8"
   }
 }

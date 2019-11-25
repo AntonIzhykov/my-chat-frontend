@@ -14,11 +14,12 @@ export const handleCheckCurrentUser = () => dispatch => {
     .then(response => {
       dispatch(actions.getUserSuccess(response.data));
       connect();
+      return history.push('/chat');
     })
     .catch(({ message }) => dispatch(actions.getUserFailure(message)));
 };
 
-export const handleAuthentication = (login, password) => dispatch => {
+export const handleAuthentication = (login, password, callBack) => dispatch => {
   dispatch(actions.authRequest());
   authentication(login, password)
     .then(response => {
@@ -26,6 +27,7 @@ export const handleAuthentication = (login, password) => dispatch => {
       TokenStorage.setItemInLocalStorage(token);
       dispatch(actions.authSuccess());
       dispatch(handleCheckCurrentUser());
+      callBack && callBack();
     })
     .catch(error => {
       dispatch(actions.authFailure(error.response.data.message));

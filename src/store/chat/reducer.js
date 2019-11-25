@@ -156,6 +156,18 @@ export const chat = (state = initialState, action) => {
         chatRooms: []
       };
 
+    case con.ROOM_EDITED:
+      return {
+        ...state,
+        chatRooms: state.chatRooms.map(room =>
+          room._id === action.payload._id ? { ...room, roomName: action.payload.roomName } : room
+        ),
+        currentRoom:
+          state.currentRoom._id === action.payload._id
+            ? { ...state.currentRoom, roomName: action.payload.roomName }
+            : state.currentRoom
+      };
+
     case con.ROOM_DELETED:
       return {
         ...state,

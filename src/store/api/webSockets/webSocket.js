@@ -51,6 +51,9 @@ export const connect = () => {
     if (serverMessage.newRoom) {
       store.dispatch(actions.addNewRoom(serverMessage.newRoom));
     }
+    if (serverMessage.roomEdited) {
+      store.dispatch(actions.roomEdited(serverMessage.roomEdited));
+    }
     if (serverMessage.roomDeleted) {
       store.dispatch(actions.roomDeleted(serverMessage.roomDeleted));
       if (store.getState().chat.currentUser.currentRoom === serverMessage.roomDeleted) {

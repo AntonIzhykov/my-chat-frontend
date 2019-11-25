@@ -52,6 +52,16 @@ export const handleDeletingMessage = messageId => {
   });
 };
 
+export const handleChangingRoomName = (roomId, newRoomName) => {
+  wsSend({
+    type: 'edit_room',
+    data: {
+      roomId,
+      newRoomName
+    }
+  });
+};
+
 export const handleDeletingRoom = (roomId, userId) => {
   wsSend({
     type: 'delete_room',

@@ -10,11 +10,14 @@ export const handleGettingRooms = () => dispatch => {
     .catch(error => dispatch(actions.getRoomsFailure(error)));
 };
 
-export const handleUpdatingProfile = userData => dispatch => {
+export const handleUpdatingProfile = (userData, callBack) => dispatch => {
   dispatch(actions.updateProfileRequest());
   const token = TokenStorage.getItemFromLocalStorage();
   updateProfile(token, userData)
-    .then(response => dispatch(actions.updateProfileRSuccess(response.data)))
+    .then(response => {
+      dispatch(actions.updateProfileRSuccess(response.data));
+      callBack && callBack();
+    })
     .catch(error => {
       const errorMsg = error.response.data.message;
       showError('error', 'Error!', errorMsg);
