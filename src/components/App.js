@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { AppRouter } from '../helpers';
 import Header from './Header';
-import 'assets/css/main.css';
+import '../assets/css/main.css';
 
 class App extends React.Component {
   render() {

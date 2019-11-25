@@ -27,11 +27,22 @@
       color: white;
       background-color: $navy-blue-gray;
     }
+
+    .overflow-hidden {
+      text-overflow: ellipsis;
+    }
   }
 
   .last-room {
     max-height: 15%;
     padding: 0.5rem 0;
+
+    a {
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
   }
 
   .rooms, .room-users {

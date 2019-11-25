@@ -40,15 +40,6 @@
       border: 0.5rem solid transparent;
       border-right: 0.5rem solid white;
     }
-
-    .msg-edit {
-      padding-left: 5px;
-      cursor: pointer;
-
-      &:hover {
-        color: $navy-blue-second;
-      }
-    }
   }
 
   .time-wrapper {

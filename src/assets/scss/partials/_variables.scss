@@ -12,7 +12,7 @@ $warm-orange-dark: #A66400;
 $ghost-white: #fafbfd;
 $glitter: #2e2e2e;
 $light-gray: #eceef2;
-$soft-gray: #8f9396;
+$soft-gray: rgb(143, 147, 150);
 $navy-blue: #1d232a;
 $navy-blue-second: #626e7b;
 $navy-blue-gray: #333c44;
@@ -230,7 +230,7 @@ $header-height: 60px;
 // Set some body defaults
 $body-bg: #fff;
 $body-color: $soft-gray;
-$border-radius-base: 3px;
+$border-radius-base: 5px;
 
 // Set some links defaults
 $link-color: $primary;
@@ -238,7 +238,7 @@ $link-color: $primary;
 $link-hover-decoration: none;
 
 // Set some buttons defaults
-$btn-default-color: $body-color;
+$btn-default-color: $primary;
 $btn-border-radius-small: $border-radius-base;
 $btn-border-radius-base: $border-radius-base;
 $btn-border-radius-large: $border-radius-base;
@@ -255,7 +255,7 @@ $input-btn-padding-y: $size8;
 $input-btn-padding-x: $size16;
 $input-color: $body-color;
 $input-focus-color: $primary;
-$input-border-color: $soft-green-light;
+$input-border-color: $navy-blue-gray;
 $input-border-radius: $border-radius-base;
 $input-placeholder-color: $glitter;
 $input-focus-border-color: $primary;

@@ -2,7 +2,7 @@
   outline: none !important;
   font-size: $size14;
   border: none;
-  //background-color: $warm-orange-light;
+  background-color: $active;
   margin: 0.5rem;
 
   &:hover,
@@ -10,7 +10,7 @@
     color: white;
   }
   &:hover {
-    //background-color: $soft-green-light;
+    background-color: $primary;
   }
 
   &:active {
@@ -18,9 +18,6 @@
     background-color: $active !important;
   }
 
-  &.bg-reverse {
-    //background-color: $soft-green-light;
-  }
   &.bg-reverse:hover {
     background-color: $active !important;
   }

@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap&subset=greek');
+@import '../../../node_modules/emoji-mart/css/emoji-mart.css';
+@import '../../../node_modules/tippy.js/dist/tippy.css';
 
 @import './partials/variables';
 @import './partials/mixins';
@@ -10,6 +12,7 @@
 @import './partials/exports';
 @import './partials/buttons';
 @import './partials/icoMoon';
+@import './partials/tippy';
 
 @import "views/header";
 @import "views/message";
@@ -21,4 +24,5 @@
 @import 'views/myAvatarEditor';
 @import 'views/roomList';
 @import 'views/currentRoom';
+@import 'views/modalWindows';
 
